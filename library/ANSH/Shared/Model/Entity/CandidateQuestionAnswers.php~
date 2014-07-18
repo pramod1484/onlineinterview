@@ -1,0 +1,80 @@
+<?php
+
+
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CandidateQuestionAnswers
+ *
+ * @ORM\Table(name="candidate_question_answers")
+ * @ORM\Entity
+ */
+class CandidateQuestionAnswers
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="answers", type="text", nullable=true)
+     */
+    private $answers;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="marks_scored", type="boolean", nullable=true)
+     */
+    private $marksScored;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="time_taken", type="time", nullable=true)
+     */
+    private $timeTaken;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_date", type="datetime", nullable=true)
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="modified_date", type="datetime", nullable=true)
+     */
+    private $modifiedDate;
+
+    /**
+     * @var \QuestionBank
+     *
+     * @ORM\ManyToOne(targetEntity="QuestionBank")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="question_bank_id", referencedColumnName="id")
+     * })
+     */
+    private $questionBank;
+
+    /**
+     * @var \CandidateTests
+     *
+     * @ORM\ManyToOne(targetEntity="CandidateTests")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="candidate_test_id", referencedColumnName="id")
+     * })
+     */
+    private $candidateTest;
+
+
+}

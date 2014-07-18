@@ -1,0 +1,97 @@
+<?php
+
+
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CandidateTests
+ *
+ * @ORM\Table(name="candidate_tests")
+ * @ORM\Entity
+ */
+class CandidateTests
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="remark", type="boolean", nullable=true)
+     */
+    private $remark;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="start_time", type="datetime", nullable=true)
+     */
+    private $startTime;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="end_time", type="datetime", nullable=true)
+     */
+    private $endTime;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="total_marks", type="integer", nullable=true)
+     */
+    private $totalMarks;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_date", type="datetime", nullable=false)
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="modified_date", type="datetime", nullable=false)
+     */
+    private $modifiedDate;
+
+    /**
+     * @var \Users
+     *
+     * @ORM\ManyToOne(targetEntity="Users")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="candidate_id", referencedColumnName="id")
+     * })
+     */
+    private $candidate;
+
+    /**
+     * @var \Tests
+     *
+     * @ORM\ManyToOne(targetEntity="Tests")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="test_id", referencedColumnName="id")
+     * })
+     */
+    private $test;
+
+    /**
+     * @var \Users
+     *
+     * @ORM\ManyToOne(targetEntity="Users")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="checked_by", referencedColumnName="id")
+     * })
+     */
+    private $checkedBy;
+
+
+}

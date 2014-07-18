@@ -1,0 +1,108 @@
+<div class="col-xs-10 col-sm-12 center-block">
+    <div class="box">
+		<div class="box-header">
+			<div class="box-name text-center">
+			<span>View Technologies</span>
+			</div>
+		</div>
+		<div class="box-content">
+			<table
+				class="table table-bordered table-striped table-hover table-heading table-datatable"
+				id="datatable-1">
+				<thead>
+					<th>Sr. No.</th>
+					<th>Technology Name</th>
+					<!--
+                                    <th>
+                                        Status
+                                    </th>-->
+					<th>Action</th>
+				</thead>
+				<tbody>
+                        <?php
+                        if (count($this->technologies)): 
+        foreach ($this->technologies as $technology) :
+            ?>
+                            <tr
+						id="cat<?php echo $this->escape($technology->getID()); ?>">
+						<td>
+                                    <?php echo $this->escape($technology->getID()); ?>
+                                </td>
+						<td>
+                                    <?php echo $this->escape($technology->getTechnologyName()); ?>
+                                </td>
+
+						<!--                            <td>
+                                                        <a id="<?php // echo $this->escape($technology->getID());   ?>" onClick="return changeStatus(this)" >
+                                <?php // echo ($technology->getIsEnabled() == true) ? $this->escape('Active') : $this->escape('Inactive');  ?>
+                                                        </a>    
+                                                    </td>-->
+						<td><a class="btn btn-xs btn-info"
+							href="<?php
+            echo $this->url(
+                    array(
+                            'controller' => 'technology',
+                            'action' => 'edit',
+                            'technologyId' => $this->escape(
+                                    $technology->getId()),
+                            'module' => 'admin'
+                    ), 'default', TRUE)?>"> <i
+								class="glyphicon glyphicon-edit" title="edit"></i>
+						</a> <a class="btn btn-danger btn-xs"
+							href="<?php
+            echo $this->url(
+                    array(
+                            'controller' => 'technology',
+                            'action' => 'delete',
+                            'technologyId' => $this->escape(
+                                    $technology->getId()),
+                            'module' => 'admin'
+                    ), 'default', TRUE)?>"
+							onclick="Javascript:return deleteTechnology(<?php echo $this->escape($technology->getId()); ?>)">
+								<i class="glyphicon glyphicon-trash" title="delete"></i>
+						</a></td>
+					</tr> 
+                        <?php endforeach;
+                              endif;?>       
+                    </tbody>
+				<tfoot>
+
+				</tfoot>
+			</table>
+		</div>
+	</div>
+	<script>
+            function deleteTechnology(technologyId)
+            {
+                var confirmAction = confirm("Are you sure to delete this technology?");
+                if (confirmAction) {
+
+                    return true;
+                }
+                return false;
+
+            }
+        </script>
+         <script
+			src="<?php echo $this->baseUrl('/assets/plugins/datatables/jquery.dataTables.js') ?>"></script>
+			 <script
+			src="<?php echo $this->baseUrl('/assets/plugins/datatables/ZeroClipboard.js') ?>"></script>
+			 <script
+			src="<?php echo $this->baseUrl('/assets/plugins/datatables/TableTools.js') ?>"></script>
+			 <script
+			src="<?php echo $this->baseUrl('/assets/plugins/datatables/dataTables.bootstrap.js') ?>"></script>
+	<script type="text/javascript">
+            // Run Datables plugin and create 3 variants of settings
+                function MakeSelect2() {
+                $('.dataTables_filter').each(function() {
+                    $(this).find('label input[type=text]').attr('placeholder', 'Common Search');
+                });
+              }
+            $(window).load(function() {
+           	 TestTable1();
+            	MakeSelect2(0);
+                // Add Drag-n-Drop feature 
+                WinMove();
+            });
+        </script>
+        

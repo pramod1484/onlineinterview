@@ -1,0 +1,128 @@
+<?php
+
+
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Candidates
+ *
+ * @ORM\Table(name="candidates")
+ * @ORM\Entity
+ */
+class Candidates
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_of_birth", type="date", nullable=true)
+     */
+    private $dateOfBirth;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="degree", type="string", length=128, nullable=true)
+     */
+    private $degree;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="refered_by", type="string", length=128, nullable=true)
+     */
+    private $referedBy;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="experience", type="string", length=128, nullable=true)
+     */
+    private $experience;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mobile_no", type="string", length=128, nullable=true)
+     */
+    private $mobileNo;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="notice_period", type="boolean", nullable=true)
+     */
+    private $noticePeriod;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="locality", type="string", length=128, nullable=true)
+     */
+    private $locality;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_date", type="datetime", nullable=false)
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="modified_date", type="datetime", nullable=false)
+     */
+    private $modifiedDate;
+
+    /**
+     * @var \Users
+     *
+     * @ORM\ManyToOne(targetEntity="Users")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
+
+    /**
+     * @var \Cities
+     *
+     * @ORM\ManyToOne(targetEntity="Cities")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="city_id", referencedColumnName="id")
+     * })
+     */
+    private $city;
+
+    /**
+     * @var \JobPositions
+     *
+     * @ORM\ManyToOne(targetEntity="JobPositions")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="job_position_id", referencedColumnName="id")
+     * })
+     */
+    private $jobPosition;
+
+    /**
+     * @var \Technology
+     *
+     * @ORM\ManyToOne(targetEntity="Technology")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="technology_id", referencedColumnName="id")
+     * })
+     */
+    private $technology;
+
+
+}

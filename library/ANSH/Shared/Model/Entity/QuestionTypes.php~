@@ -1,0 +1,46 @@
+<?php
+
+
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * QuestionTypes
+ *
+ * @ORM\Table(name="question_types")
+ * @ORM\Entity
+ */
+class QuestionTypes
+{
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="id", type="boolean", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="question_type", type="string", length=45, nullable=false)
+     */
+    private $questionType;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_date", type="datetime", nullable=false)
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="modified_date", type="datetime", nullable=true)
+     */
+    private $modifiedDate;
+
+
+}

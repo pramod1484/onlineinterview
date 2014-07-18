@@ -1,0 +1,122 @@
+<div class="col-xs-12 col-sm-12 center-block">
+    <div class="box">
+		<div class="box-header">
+			<div class="box-name text-center">
+				<i class="fa fa-linux"></i> <span>View tests</span>
+			</div>
+		</div>
+		<div class="box-content">
+			<table
+				class="table table-bordered table-striped table-hover table-heading table-datatable"
+				id="datatable-2">
+				<thead>
+<!--					<th>Sr. No.</th>-->
+					<th>Test Name</th>
+					<th>Test Technology</th>
+					<th>Test Categories</th>
+					<th>Action</th>
+				</thead>
+				<thead>
+					<tr>
+<!--						<th><label><input type="text" name="search_name" class='hide'
+								value="Search Test Name" class="search_init" /></label></th>-->
+						<th><label><input type="text" name="search_name"
+								value="Search Test Name" class="search_init" /></label></th>
+						<th><label><input type="text" name="search_technology"
+								value="Search test technology" class="search_init" /></label></th>
+						<th><label><input type="text" name="search_category"
+								value="Search category" class="search_init" /></label></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+                        <?php 
+                        if (count($this->tests)): 
+        $c = 0;
+        foreach ($this->tests as $test) :
+            ?>
+                            <tr
+						id="cat<?php echo $this->escape($test->getID()); ?>">
+<!--						<td>
+                                    <?php //echo ++$c; ?>
+                                </td>-->
+						<td>
+                                    <?php echo (($test->getTestName())); ?>
+                                </td>
+						<td>
+                                    <?php echo $this->escape($test->getTechnology()->getTechnologyName()); ?>                 </td>
+						<td>
+                                    <?php echo ($test->categories !== '') ? $test->categories : 'No Category Defined'; ?>
+
+                                </td>
+						<td><a class="btn btn-info btn-xs"
+							href="<?php
+            echo $this->url(
+                    array(
+                            'controller' => 'test',
+                            'action' => 'edit',
+                            'testId' => $this->escape($test->getId()),
+                            'module' => 'admin'
+                    ), 'default', TRUE)?>"> <i
+								class="glyphicon glyphicon-edit" title="edit"></i>
+						</a> <a class="btn btn-danger btn-xs"
+							href="<?php
+            echo $this->url(
+                    array(
+                            'controller' => 'test',
+                            'action' => 'delete',
+                            'testId' => $this->escape($test->getId()),
+                            'module' => 'admin'
+                    ), 'default', TRUE)?>"
+							onclick="Javascript:return deleteTest(<?php echo $this->escape($test->getId()); ?>)">
+								<i class="glyphicon glyphicon-trash" title="delete"></i>
+						</a></td>
+					</tr> 
+                        <?php endforeach;
+                        endif; ?>       
+                    </tbody>
+				<tfoot>
+
+				</tfoot>
+			</table>
+
+		</div>
+	</div>
+	<script>
+            function deleteTest(testId)
+            {
+                var confirmAction = confirm("Are you sure to delete this test?");
+                if (confirmAction) {
+
+                    return true;
+                }
+                return false;
+            }
+        </script>
+        <script
+			src="<?php echo $this->baseUrl('/assets/plugins/datatables/jquery.dataTables.js') ?>"></script>
+			 <script
+			src="<?php echo $this->baseUrl('/assets/plugins/datatables/ZeroClipboard.js') ?>"></script>
+			 <script
+			src="<?php echo $this->baseUrl('/assets/plugins/datatables/TableTools.js') ?>"></script>
+			 <script
+			src="<?php echo $this->baseUrl('/assets/plugins/datatables/dataTables.bootstrap.js') ?>"></script>
+	<script type="text/javascript">
+    // Run Datables plugin and create 3 variants of settings 
+           
+          function MakeSelect2() {
+                $('.dataTables_filter').each(function() {
+                    $(this).find('label input[type=text]').remove();
+                });
+              
+            }
+            $(document).ready(function() {
+                
+                TestTable2(1);
+                MakeSelect2();
+                // Load Datatables and run plugin on tables 
+            //    LoadDataTablesScripts(AllTables);
+                // Add Drag-n-Drop feature
+                WinMove();
+            });
+        </script>

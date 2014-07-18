@@ -1,0 +1,50 @@
+CandidateQuestionAnswers:
+    type: entity
+    table: candidate_question_answers
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: true
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        answers:
+            type: text
+            nullable: true
+        marksScored:
+            type: boolean
+            nullable: true
+            column: marks_scored
+        timeTaken:
+            type: time
+            nullable: true
+            column: time_taken
+        createdDate:
+            type: datetime
+            nullable: true
+            column: created_date
+        modifiedDate:
+            type: datetime
+            nullable: true
+            column: modified_date
+    manyToOne:
+        questionBank:
+            targetEntity: QuestionBank
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                question_bank_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        candidateTest:
+            targetEntity: CandidateTests
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                candidate_test_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

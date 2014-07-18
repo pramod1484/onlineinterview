@@ -1,0 +1,25 @@
+QuestionTypes:
+    type: entity
+    table: question_types
+    fields:
+        id:
+            id: true
+            type: boolean
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        questionType:
+            type: string
+            length: 45
+            fixed: false
+            nullable: false
+            column: question_type
+        createdDate:
+            type: datetime
+            nullable: false
+            column: created_date
+        modifiedDate:
+            type: datetime
+            nullable: true
+            column: modified_date
+    lifecycleCallbacks: {  }

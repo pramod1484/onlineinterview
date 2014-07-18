@@ -1,0 +1,50 @@
+Users:
+    type: entity
+    table: users
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: true
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        fullName:
+            type: string
+            length: 256
+            fixed: false
+            nullable: false
+            column: full_name
+        email:
+            type: string
+            length: 256
+            fixed: false
+            nullable: false
+        password:
+            type: string
+            length: 256
+            fixed: false
+            nullable: false
+        isEnabled:
+            type: boolean
+            nullable: false
+            column: is_enabled
+        createdDate:
+            type: datetime
+            nullable: false
+            column: created_date
+        modifiedDate:
+            type: datetime
+            nullable: false
+            column: modified_date
+    manyToOne:
+        role:
+            targetEntity: Roles
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                role_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

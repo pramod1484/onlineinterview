@@ -1,0 +1,36 @@
+Tests:
+    type: entity
+    table: tests
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: true
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        testName:
+            type: string
+            length: 128
+            fixed: false
+            nullable: false
+            column: test_name
+        createdDate:
+            type: datetime
+            nullable: false
+            column: created_date
+        modifiedDate:
+            type: datetime
+            nullable: false
+            column: modified_date
+    manyToOne:
+        technology:
+            targetEntity: Technology
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                technology_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

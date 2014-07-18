@@ -1,0 +1,423 @@
+<?xml version="1.0"?>
+<projectProfile type="default" version="1.12.5">
+  <projectDirectory>
+    <projectProfileFile filesystemName=".zfproject.xml"/>
+    <applicationDirectory classNamePrefix="Application_">
+      <configsDirectory>
+        <applicationConfigFile type="ini"/>
+      </configsDirectory>
+      <controllersDirectory>
+        <controllerFile controllerName="Index">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="login"/>
+          <actionMethod actionName="deleteCategoryImage"/>
+          <actionMethod actionName="barChart"/>
+        </controllerFile>
+        <controllerFile controllerName="Error"/>
+        <controllerFile controllerName="Login">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+      </controllersDirectory>
+      <formsDirectory>
+        <formFile formName="Login"/>
+        <formFile formName="UserPartial"/>
+        <formFile formName="TechnologyForm"/>
+      </formsDirectory>
+      <layoutsDirectory>
+        <layoutScriptsDirectory>
+          <layoutScriptFile layoutName="layout"/>
+        </layoutScriptsDirectory>
+      </layoutsDirectory>
+      <modelsDirectory/>
+      <modulesDirectory>
+        <moduleDirectory moduleName="admin">
+          <configsDirectory enabled="false"/>
+          <controllersDirectory>
+            <controllerFile controllerName="Index">
+              <actionMethod actionName="index"/>
+            </controllerFile>
+            <controllerFile controllerName="User">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="add"/>
+              <actionMethod actionName="edit"/>
+              <actionMethod actionName="delete"/>
+              <actionMethod actionName="list"/>
+              <actionMethod actionName="changePassword"/>
+            </controllerFile>
+            <controllerFile controllerName="QuestionCategory">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="list"/>
+              <actionMethod actionName="add"/>
+              <actionMethod actionName="edit"/>
+              <actionMethod actionName="delete"/>
+              <actionMethod actionName="deleteCategoryImage"/>
+            </controllerFile>
+            <controllerFile controllerName="QuestionCategory1">
+              <actionMethod actionName="index"/>
+            </controllerFile>
+            <controllerFile controllerName="Question">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="list"/>
+              <actionMethod actionName="add"/>
+              <actionMethod actionName="edit"/>
+              <actionMethod actionName="delete"/>
+              <actionMethod actionName="editorImageUpload"/>
+            </controllerFile>
+            <controllerFile controllerName="Test">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="list"/>
+              <actionMethod actionName="add"/>
+              <actionMethod actionName="edit"/>
+              <actionMethod actionName="delete"/>
+            </controllerFile>
+            <controllerFile controllerName="Technology">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="list"/>
+              <actionMethod actionName="add"/>
+              <actionMethod actionName="edit"/>
+              <actionMethod actionName="delete"/>
+            </controllerFile>
+            <controllerFile controllerName="Candidate">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="list"/>
+              <actionMethod actionName="add"/>
+              <actionMethod actionName="edit"/>
+              <actionMethod actionName="delete"/>
+              <actionMethod actionName="profileView"/>
+            </controllerFile>
+            <controllerFile controllerName="Report">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="getMarksheet"/>
+              <actionMethod actionName="updateMark"/>
+              <actionMethod actionName="getCategorywiseGrafficcalReport"/>
+              <actionMethod actionName="categoryWiseReport"/>
+              <actionMethod actionName="positionWiseReport"/>
+            </controllerFile>
+            <controllerFile controllerName="Position">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="list"/>
+              <actionMethod actionName="add"/>
+              <actionMethod actionName="edit"/>
+            </controllerFile>
+          </controllersDirectory>
+          <formsDirectory>
+            <formFile formName="UserPartial"/>
+            <formFile formName="Questioncategory"/>
+            <formFile formName="QuestionForm"/>
+            <formFile formName="TestCreateForm"/>
+            <formFile formName="Cadidate"/>
+            <formFile formName="JobPosition"/>
+          </formsDirectory>
+          <layoutsDirectory enabled="false"/>
+          <modelsDirectory>
+            <modelFile modelName="UserMapper"/>
+            <modelFile modelName="QuestionCategoryMapper"/>
+            <modelFile modelName="QuestionType"/>
+            <modelFile modelName="QuestionMapper"/>
+            <modelFile modelName="TechnologyMapper"/>
+            <modelFile modelName="TestMapper"/>
+            <modelFile modelName="TestCategoryMapper"/>
+            <modelFile modelName="JobPositions"/>
+            <modelFile modelName="CandidateMapper"/>
+            <modelFile modelName="CandidateTestMapper"/>
+            <modelFile modelName="JobPosition"/>
+          </modelsDirectory>
+          <servicesDirectory enabled="false"/>
+          <viewsDirectory>
+            <viewScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="User">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="User">
+                <viewScriptFile forActionName="add"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="User">
+                <viewScriptFile forActionName="edit"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="User">
+                <viewScriptFile forActionName="delete"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="User">
+                <viewScriptFile forActionName="list"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="QuestionCategory">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="QuestionCategory1">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="QuestionCategory">
+                <viewScriptFile forActionName="list"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="QuestionCategory">
+                <viewScriptFile forActionName="add"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="QuestionCategory">
+                <viewScriptFile forActionName="edit"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="QuestionCategory">
+                <viewScriptFile forActionName="delete"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Question">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Test">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Test">
+                <viewScriptFile forActionName="list"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Test">
+                <viewScriptFile forActionName="add"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Test">
+                <viewScriptFile forActionName="edit"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Test">
+                <viewScriptFile forActionName="delete"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Technology">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Technology">
+                <viewScriptFile forActionName="list"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Technology">
+                <viewScriptFile forActionName="add"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Technology">
+                <viewScriptFile forActionName="edit"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Technology">
+                <viewScriptFile forActionName="delete"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Candidate">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Candidate">
+                <viewScriptFile forActionName="list"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Candidate">
+                <viewScriptFile forActionName="add"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Candidate">
+                <viewScriptFile forActionName="edit"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Candidate">
+                <viewScriptFile forActionName="delete"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Report">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Report">
+                <viewScriptFile forActionName="getMarksheet"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Report">
+                <viewScriptFile forActionName="updateMark"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Report">
+                <viewScriptFile forActionName="getCategorywiseGrafficcalReport"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Question">
+                <viewScriptFile forActionName="editorImageUpload"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Report">
+                <viewScriptFile forActionName="positionWiseReport"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Position">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Position">
+                <viewScriptFile forActionName="list"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Position">
+                <viewScriptFile forActionName="add"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Position">
+                <viewScriptFile forActionName="edit"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="User">
+                <viewScriptFile forActionName="changePassword"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Candidate">
+                <viewScriptFile forActionName="profileView"/>
+              </viewControllerScriptsDirectory>
+            </viewScriptsDirectory>
+            <viewHelpersDirectory/>
+            <viewFiltersDirectory/>
+          </viewsDirectory>
+        </moduleDirectory>
+        <moduleDirectory moduleName="candidate">
+          <configsDirectory enabled="false"/>
+          <controllersDirectory>
+            <controllerFile controllerName="Index">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="test"/>
+            </controllerFile>
+            <controllerFile controllerName="Profile">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="view"/>
+              <actionMethod actionName="edit"/>
+            </controllerFile>
+            <controllerFile controllerName="Test">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="start"/>
+              <actionMethod actionName="ajaxQuestionCall"/>
+              <actionMethod actionName="getquestion"/>
+              <actionMethod actionName="getQuestion"/>
+              <actionMethod actionName="thankYou"/>
+              <actionMethod actionName="thank"/>
+              <actionMethod actionName="getPdfMarksheet"/>
+            </controllerFile>
+          </controllersDirectory>
+          <formsDirectory>
+            <formFile formName="Profile"/>
+          </formsDirectory>
+          <layoutsDirectory enabled="false"/>
+          <modelsDirectory>
+            <modelFile modelName="CandidateQuestionAnswerMapper"/>
+          </modelsDirectory>
+          <servicesDirectory enabled="false"/>
+          <viewsDirectory>
+            <viewScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Profile">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Profile">
+                <viewScriptFile forActionName="view"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Profile">
+                <viewScriptFile forActionName="edit"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="test"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Test">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Test">
+                <viewScriptFile forActionName="start"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Test">
+                <viewScriptFile forActionName="ajaxQuestionCall"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Test">
+                <viewScriptFile forActionName="getquestion"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Test">
+                <viewScriptFile forActionName="getQuestion"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Test">
+                <viewScriptFile forActionName="thankYou"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Test">
+                <viewScriptFile forActionName="thank"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Test">
+                <viewScriptFile forActionName="getPdfMarksheet"/>
+              </viewControllerScriptsDirectory>
+            </viewScriptsDirectory>
+            <viewHelpersDirectory/>
+            <viewFiltersDirectory/>
+          </viewsDirectory>
+        </moduleDirectory>
+        <moduleDirectory moduleName="test">
+          <configsDirectory enabled="false"/>
+          <controllersDirectory/>
+          <formsDirectory enabled="false"/>
+          <layoutsDirectory enabled="false"/>
+          <modelsDirectory/>
+          <servicesDirectory enabled="false"/>
+          <viewsDirectory>
+            <viewScriptsDirectory/>
+            <viewHelpersDirectory/>
+            <viewFiltersDirectory/>
+          </viewsDirectory>
+        </moduleDirectory>
+      </modulesDirectory>
+      <servicesDirectory enabled="false"/>
+      <viewsDirectory>
+        <viewScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Error">
+            <viewScriptFile forActionName="error"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="login"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Login">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="deleteCategoryImage"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="QuestionCategory">
+            <viewScriptFile forActionName="deleteCategoryImage"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Question">
+            <viewScriptFile forActionName="list"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Question">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Question">
+            <viewScriptFile forActionName="edit"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Question">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="barChart"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Report">
+            <viewScriptFile forActionName="categoryWiseReport"/>
+          </viewControllerScriptsDirectory>
+        </viewScriptsDirectory>
+        <viewHelpersDirectory/>
+        <viewFiltersDirectory enabled="false"/>
+      </viewsDirectory>
+      <bootstrapFile filesystemName="Bootstrap.php"/>
+    </applicationDirectory>
+    <dataDirectory enabled="false">
+      <cacheDirectory enabled="false"/>
+      <searchIndexesDirectory enabled="false"/>
+      <localesDirectory enabled="false"/>
+      <logsDirectory enabled="false"/>
+      <sessionsDirectory enabled="false"/>
+      <uploadsDirectory enabled="false"/>
+    </dataDirectory>
+    <docsDirectory>
+      <file filesystemName="README.txt"/>
+    </docsDirectory>
+    <libraryDirectory>
+      <zfStandardLibraryDirectory enabled="false"/>
+    </libraryDirectory>
+    <publicDirectory>
+      <publicStylesheetsDirectory enabled="false"/>
+      <publicScriptsDirectory enabled="false"/>
+      <publicImagesDirectory enabled="false"/>
+      <publicIndexFile filesystemName="index.php"/>
+      <htaccessFile filesystemName=".htaccess"/>
+    </publicDirectory>
+    <projectProvidersDirectory enabled="false"/>
+    <temporaryDirectory enabled="false"/>
+    <testsDirectory>
+      <testPHPUnitConfigFile filesystemName="phpunit.xml"/>
+      <testPHPUnitBootstrapFile filesystemName="bootstrap.php"/>
+      <testApplicationDirectory>
+        <testApplicationControllerDirectory>
+          <testApplicationControllerFile forControllerName="Index"/>
+        </testApplicationControllerDirectory>
+      </testApplicationDirectory>
+      <testLibraryDirectory/>
+    </testsDirectory>
+  </projectDirectory>
+</projectProfile>

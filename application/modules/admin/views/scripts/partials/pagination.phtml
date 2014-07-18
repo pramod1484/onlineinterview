@@ -1,0 +1,42 @@
+ 
+<?php if ($this->pageCount): ?>
+<div class="paging_bootstrap pull-right">
+	<ul class="pagination">
+		<!-- Previous page link -->
+            <?php if (isset($this->previous)): ?>
+                <li class="prev"><a
+			href="<?php echo $this->url(array('page' => $this->previous)); ?>"> <i
+				class="icon-double-angle-left"></i> Previous
+		</a></li>
+            <?php else: ?>
+                <li class="prev disabled"><a href="#"><i
+				class="icon-double-angle-left"></i> Previous</a></li>
+            <?php endif; ?>
+
+            <!-- Numbered page links -->
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <?php if ($page != $this->current): ?>
+                    <li><a
+			href="<?php echo $this->url(array('page' => $page)); ?>">
+                            <?php echo $page; ?>
+                        </a></li>
+                <?php else: ?>
+                    <li class="active"><a href="#">
+                            <?php echo $page; ?> 
+                        </a></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+
+            <!-- Next page link -->
+            <?php if (isset($this->next)): ?>
+                <li class="next"><a
+			href="<?php echo $this->url(array('page' => $this->next)); ?>"> Next
+				<i class="icon-double-angle-right"></i>
+		</a></li>
+            <?php else: ?>
+                <li class="next disabled"><a href="#">Next <i
+				class="icon-double-angle-right"></i></span></li>
+            <?php endif; ?>
+        </ul>
+</div>
+<?php endif; ?>

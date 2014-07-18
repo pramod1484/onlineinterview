@@ -1,0 +1,103 @@
+<div class="col-xs-12 col-sm-12 center-block">
+        <div class="box">
+		<div class="box-header">
+			<div class="box-name text-center">
+				<i class="fa fa-linux"></i> <span>View Job Positions</span>
+			</div>
+		</div>
+		<div class="box-content">
+			<table
+				class="table table-bordered table-striped table-hover table-heading table-datatable"
+				id="datatable-1">
+				<thead>
+					<th>Sr. No.</th>
+					<th>Job Position Name</th>
+					<th>Action</th>
+				</thead>
+				<tbody>
+                        <?php
+                        if (count($this->jobPositions)): 
+        $c = 1;
+        foreach ($this->jobPositions as $key => $position) : 
+            ?>
+                            <tr
+						id="cat<?php echo $this->escape($position->getID()); ?>">
+						<td>
+                                    <?php echo $key + 1; ?>
+                                </td>
+						<td>
+                                    <?php echo $this->escape($position->getPosition()); ?>
+                                </td>
+						
+						<td><a class="btn btn-info btn-xs"
+							href="<?php
+            echo $this->url(
+                    array(
+                            'controller' => 'job-position',
+                            'action' => 'edit',
+                            'positionId' => $this->escape($position->getId()),
+                            'module' => 'admin'
+                    ), 'default', TRUE)?>"> <i
+								class="glyphicon glyphicon-edit" title="edit"></i>
+                            </a>
+<!--						 <a class="btn btn-danger btn-xs"
+							href="<?php
+          //  echo $this->url(
+//                    array(
+//                            'controller' => 'question-category',
+//                            'action' => 'delete',
+//                            'categoryId' => $this->escape($position->getId()),
+//                            'module' => 'admin'
+//                    ), 'default', TRUE)?>"
+							onclick="Javascript:return deleteCategory(<?php // echo $this->escape($category->getId()); ?>)">
+								<i class="glyphicon glyphicon-trash" title="delete"></i>
+						</a></td>-->
+					</tr> 
+                        <?php endforeach; 
+                        endif;?>       
+                    </tbody>
+			</table>
+                <?php
+        // echo $this->paginationControl($this->categories, 'Sliding',
+        // 'partials/pagination.phtml');
+        ?>
+            </div>
+	</div>
+ <script
+			src="<?php echo $this->baseUrl('/assets/plugins/datatables/jquery.dataTables.js') ?>"></script>
+			 <script
+			src="<?php echo $this->baseUrl('/assets/plugins/datatables/ZeroClipboard.js') ?>"></script>
+			 <script
+			src="<?php echo $this->baseUrl('/assets/plugins/datatables/TableTools.js') ?>"></script>
+			 <script
+			src="<?php echo $this->baseUrl('/assets/plugins/datatables/dataTables.bootstrap.js') ?>"></script>
+	<script type="text/javascript">
+            // Run Datables plugin and create 3 variants of settings
+                function MakeSelect2() {
+                $('.dataTables_filter').each(function() {
+                    $(this).find('label input[type=text]').attr('placeholder', 'Common Search');
+                });
+              }
+            $(window).load(function() {
+           	 TestTable1();
+            	MakeSelect2();
+                // Add Drag-n-Drop feature 
+                WinMove();
+            });
+        </script>
+
+        <?php $this->headScript()->captureStart()?>
+        function deleteCategory(categoryId){
+        var confirmAction = confirm("Are you sure to delete this category?");
+
+
+        if (confirmAction) {
+
+        return true;
+        }
+        return false;
+
+
+        }
+        <?php $this->headScript()->captureEnd()?>
+    

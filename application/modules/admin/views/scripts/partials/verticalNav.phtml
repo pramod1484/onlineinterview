@@ -1,0 +1,49 @@
+<?php
+$html = array(
+        '<div id="sidebar-left" class="col-xs-2 col-sm-2"><ul class="nav main-menu">'
+);
+
+foreach ($this->container as $page) {
+    // show only the current branch and the visible item
+    if (! $page->isVisible() || ! $this->navigation()->accept($page) ||
+             ($this->menu()->getOnlyActiveBranch() && ! $page->isActive(true))) {
+        continue;
+    }
+    $subnav = $page->findOneByActive(1);
+    $activeParent = (! $subnav) ? 'dropdown-toggle' : "dropdown-toggle active active-parent";
+    $activeParent = ($this->url() == $page->getHref()) ? 'active' : $activeParent;
+    // header
+    $html[] = '<li class="dropdown">';
+    $html[] = '<a class="' . $activeParent . '" href="' . $page->getHref() . '" ';
+    $html[] = ($page->pages) ? 'data-toggle="dropdown">' : '>';
+    $html[] = $page->getLabel();
+    $html[] = '</a>';
+    $html[] = '<ul class= "dropdown-menu" ';
+    $html[] = ($subnav) ? 'style="display:block">' : '>';
+    foreach ($page->pages as $subPage) {
+        // visibility of the sub-page
+        if (! $subPage->isVisible() ||
+                 ! $this->navigation()->accept($subPage, false)) {
+            continue;
+        }
+        
+        $html[] = '<li' .
+                 ($subPage->isActive() ? ' class=" ' . $subPage->getClass() .
+                 ' active" ' : ' class="' . $subPage->getClass() . '"') . '>';
+        $html[] = '<a href="' . $subPage->getHref() . ' " class="ajax-li">';
+        
+        if ($subPage->get('icon')) {
+            $html[] = '<i class="icon-' . $subPage->get('icon') . '"></i>';
+        }
+        
+        $html[] = $subPage->getLabel();
+        $html[] = "</a>";
+        $html[] = "</li>";
+    }
+    $html[] = '</ul>';
+    $html[] = "</li>";
+}
+
+$html[] = '</ul></div>';
+
+echo join(PHP_EOL, $html);

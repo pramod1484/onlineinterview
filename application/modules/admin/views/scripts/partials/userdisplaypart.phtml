@@ -1,0 +1,27 @@
+<?php //TODO delete this page    ?>
+<tr id="usr<?php echo $this->escape($this->id); ?>">
+	<td>
+        <?php echo $this->escape($this->id); ?>
+    </td>
+	<td>
+        <?php echo $this->escape($this->username); ?>
+    </td>
+	<td>
+        <?php echo $this->escape($this->role ? $this->role : 'Undefined'); ?>
+    </td>
+	<td><a id="<?php echo $this->escape($this->id); ?>"
+		onClick="return changeStatus(this)">
+            <?php echo $this->status; ?>
+        </a></td>
+	<td><a
+		href="<?php
+echo $this->url(
+        array(
+                'controller' => 'users',
+                'action' => 'edit',
+                'userId' => $this->escape($this->id),
+                'module' => 'Admin'
+        ), 'default', TRUE)?>"> edit </a> <a
+		href="Javascript:deleteUser(<?php echo $this->escape($this->id); ?>)">
+			delete</a></td>
+</tr>

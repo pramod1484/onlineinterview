@@ -1,0 +1,102 @@
+Candidates:
+    type: entity
+    table: candidates
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: true
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        fullName:
+            type: string
+            length: 256
+            fixed: false
+            nullable: false
+            column: full_name
+        email:
+            type: string
+            length: 256
+            fixed: false
+            nullable: false
+        password:
+            type: string
+            length: 256
+            fixed: false
+            nullable: false
+        dateOfBirth:
+            type: date
+            nullable: true
+            column: date_of_birth
+        degree:
+            type: string
+            length: 128
+            fixed: false
+            nullable: true
+        referedBy:
+            type: string
+            length: 128
+            fixed: false
+            nullable: true
+            column: refered_by
+        experience:
+            type: string
+            length: 128
+            fixed: false
+            nullable: true
+        mobileNo:
+            type: string
+            length: 128
+            fixed: false
+            nullable: true
+            column: mobile_no
+        noticePeriod:
+            type: boolean
+            nullable: true
+            column: notice_period
+        locality:
+            type: string
+            length: 128
+            fixed: false
+            nullable: true
+        status:
+            type: boolean
+            nullable: false
+        createdDate:
+            type: datetime
+            nullable: false
+            column: created_date
+        modifiedDate:
+            type: datetime
+            nullable: false
+            column: modified_date
+    manyToOne:
+        city:
+            targetEntity: Cities
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                city_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        jobPosition:
+            targetEntity: JobPositions
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                job_position_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        technology:
+            targetEntity: Technology
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                technology_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

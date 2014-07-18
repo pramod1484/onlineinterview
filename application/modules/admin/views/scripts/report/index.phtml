@@ -1,0 +1,195 @@
+<div class="col-xs-12 col-sm-12 center-block">
+        <div class="box">
+		<div class="box-header">
+			<div class="box-name text-center">
+				<i class="fa fa-linux"></i> <span>Candidate Results</span>
+			</div>
+
+		</div>
+		<div class="box-content no-padding table-responsive">
+			<table
+				class="table table-bordered table-striped table-hover table-heading table-datatable"
+				id="datatable-2">
+				<thead>
+					<!--        <th>
+                       User Id
+                   </th>-->
+					
+					<th>Name</th>
+					<th>User name</th>
+					<th>Position applied for</th>
+					<th>Test</th>
+					<th class="">Test date</th>
+					<th>Marks</th>
+
+					<th>Action</th>
+				</thead>
+				<thead>
+					<tr>
+						
+
+						<th><label><input type="text" name="search_fullName"
+								value="Search  Name" class="search_init" /></label></th>
+						<th><label><input type="text" name="search_userName"
+								value="Search Username" class="search_init" /></label></th>
+						<th><label><input type="text" name="search_position"
+								value="Search position" class="search_init" /></label></th>
+						<th><label><input type="text" name="search_test"
+								value="Search Test" class="search_init" /></label></th>
+								<th class=""><label><input type="text" name="search_fullName"
+								value="Search Test date" class="search_init" /></label></th>
+						<th>Scored/Total</th>
+						<th>
+			     <button class="btn disabled  btn-success btn-xs" type="button">
+			     
+
+</button><small>reviewed</small><p>
+<button class="btn disabled btn-info btn-xs" type="button">
+
+</button><small>not reviewed</small>
+			</th>
+					</tr>
+				</thead>
+				<tbody>
+                        <?php
+                        if (count($this->candidates)): 
+        foreach ($this->candidates as $candidate) :
+            ?>
+                            <tr
+						id="usr<?php echo $this->escape($candidate->getID()); ?>">
+						
+						<td>
+                                    <?php echo $this->escape($candidate->getCandidate()->getUser()->getfullName()); ?>
+                                </td>
+						<td>
+                                    <?php echo $this->escape($candidate->getCandidate()->getUser()->getEmail()); ?>
+                                </td>
+						<td>
+                                    <?php echo $this->escape($candidate->getCandidate()->getJobPosition() ? $candidate->getCandidate()->getJobPosition()->getPosition() : 'Position not assigned'); ?>
+                                </td>
+
+						<td>
+                                    <?php echo $this->escape(($candidate->getTest()) ? $candidate->getTest()->getTestName() : "No test assigned"); ?>
+                                </td>
+                                <td >
+                                    <?php  echo $this->escape($candidate->getStartTime()->format('d-m-Y'));   ?>
+                                </td>
+						<td>
+                                    <?php echo $this->escape($candidate->getTotalMarks()); ?> / <?php echo $this->escape($candidate->total); ?> 
+                                </td>
+						<!--                            <td>
+                                <?php //echo $this->escape(remark((int) $candidate->getRemark())); ?>
+                                </td>-->
+						<td class="center"><a
+							class="btn <?php echo ($candidate->getRemark() == 2 ) ? 'btn-info' : 'btn-success' ?> btn-xs"
+							href="<?php
+            echo $this->url(
+                    array(
+                            'controller' => 'report',
+                            'action' => 'get-marksheet',
+                            'candidateTestId' => $this->escape(
+                                    $candidate->getId()),
+                            'module' => 'admin'
+                    ), 'default', TRUE)?>"
+							data-toggle="modal" data-target="#adminModal"
+							<?php if ($candidate->getRemark() == 2) : ?>
+							onClick="alert('Once marks given we can\' change it.');"
+							<?php endIf; ?>> <i class="glyphicon glyphicon-list"
+								title="Marksheet"></i>
+						</a> <a
+							href="<?php
+            echo $this->url(
+                    array(
+                            'controller' => 'report',
+                            'action' => 'get-categorywise-graffical-report',
+                            'candidateTestId' => $this->escape(
+                                    $candidate->getId()),
+                            'module' => 'admin'
+                    ), 'default', TRUE)?>"
+							<?php if ($candidate->getRemark() == 2) : ?>
+							onClick="alert('This test is not reviewd yet.');
+                                                        return false;"
+							class="btn btn-info btn-xs" <?php else : ?>
+							class="btn btn-success btn-xs" data-toggle="modal"
+							data-target="#commonModal" <?php endif; ?>> <i
+								class="glyphicon  glyphicon glyphicon-signal"
+								title="Graffical Report"></i>
+						</a>
+                        <a
+							href="<?php
+            echo $this->url(
+                    array(
+                            'controller' => 'candidate',
+                            'action' => 'profile-view',
+                            'candidateId' => $this->escape(
+                                    $candidate->getCandidate()->getUser()->getId()),
+                            'module' => 'admin'
+                    ), 'default', TRUE)?>"
+							
+							class="btn btn-success btn-xs" data-toggle="modal"
+							data-target="#commonModal" > <i
+								class="glyphicon  glyphicon glyphicon-user"
+								title="Candidate profile"></i>
+						</a></td>
+					</tr> 
+                        <?php endforeach;
+                        endif; ?>       
+                    </tbody>
+				<tfoot>
+
+				</tfoot>
+			</table>
+			
+                <?php
+        // echo $this->paginationControl($this->candidates, 'Sliding',
+        // 'partials/pagination.phtml');
+        ?>
+            </div>
+	</div>
+	  <script src="//code.highcharts.com/highcharts.js"></script>
+			<script src="//code.highcharts.com/modules/exporting.js"></script>
+	    <script
+			src="<?php echo $this->baseUrl('/assets/plugins/datatables/jquery.dataTables.js') ?>"></script>
+			 <script
+			src="<?php echo $this->baseUrl('/assets/plugins/datatables/ZeroClipboard.js') ?>"></script>
+			 <script
+			src="<?php echo $this->baseUrl('/assets/plugins/datatables/TableTools.js') ?>"></script>
+			 <script
+			src="<?php echo $this->baseUrl('/assets/plugins/datatables/dataTables.bootstrap.js') ?>"></script>
+	<script type="text/javascript">
+    // Run Datables plugin and create 3 variants of settings 
+           
+          function MakeSelect2() {
+                $('.dataTables_filter').each(function() {
+                    $(this).find('label input[type=text]').remove();
+                });
+              
+            }
+            $(document).ready(function() {
+                
+                TestTable2(4);
+                MakeSelect2();
+                // Load Datatables and run plugin on tables 
+            //    LoadDataTablesScripts(AllTables);
+                // Add Drag-n-Drop feature
+                WinMove();
+            });
+        </script>
+        
+     <?php 
+    function remark ($remark)
+    {
+        switch ($remark) {
+            case '0':
+                $remark = 'Exam not given';
+                break;
+            case '1':
+                $remark = 'Yet to Review';
+                break;
+            case '2':
+                $remark = 'Waiting for result';
+                break;
+        }
+        echo $remark;
+    }
+    ?>

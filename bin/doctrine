@@ -1,0 +1,64 @@
+<?php
+
+define('APPLICATION_ENV', 'development');
+
+// Define path to application directory
+defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
+
+set_include_path(implode(PATH_SEPARATOR, array(
+    realpath(APPLICATION_PATH . '/../library'),
+    get_include_path(),
+)));
+// Doctrine and Symfony Classes
+require_once 'Doctrine/Common/ClassLoader.php';
+
+// Autoloader (1)
+$classLoader = new \Doctrine\Common\ClassLoader('Doctrine', APPLICATION_PATH . '/../library');
+$classLoader->register();
+$classLoader = new \Doctrine\Common\ClassLoader('Symfony', APPLICATION_PATH . '/../library/Doctrine');
+$classLoader->register();
+$classLoader = new \Doctrine\Common\ClassLoader('Entities', APPLICATION_PATH . '/../library/ANSH/Shared/Model/Entity');
+$classLoader->setNamespaceSeparator('_');
+$classLoader->register();
+
+// Zend Components
+require_once 'Zend/Application.php';
+
+// Create application
+$application = new Zend_Application(
+        APPLICATION_ENV, APPLICATION_PATH . '/configs/application.ini'
+);
+
+// configuration (2)
+$config = new \Doctrine\ORM\Configuration();
+
+// Proxies (3)
+$config->setProxyDir(__DIR__ . '/../library/ANSH/Shared/Model/Proxies');
+$config->setProxyNamespace('App/Proxies');
+
+$config->setAutoGenerateProxyClasses((APPLICATION_ENV == "development"));
+
+// Driver (4)
+$driverImpl = $config->newDefaultAnnotationDriver(array(__DIR__ . DIRECTORY_SEPARATOR . "/../library/ANSH/Shared/Model/Entity"));
+$config->setMetadataDriverImpl($driverImpl);
+
+// Caching Configuration (5)
+if (APPLICATION_ENV == "development") {
+    $cache = new \Doctrine\Common\Cache\ArrayCache();
+} else {
+    $cache = new \Doctrine\Common\Cache\ApcCache();
+}
+
+$config->setMetadataCacheImpl($cache);
+$config->setQueryCacheImpl($cache);
+
+// bootstrap doctrine
+$application->getBootstrap()->bootstrap('doctrine');
+$em = $application->getBootstrap()->getResource('doctrine');
+
+
+$helperSet = new \Symfony\Component\Console\Helper\HelperSet(array(
+    'db' => new \Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper($em->getConnection()),
+    'em' => new \Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper($em)
+        ));
+\Doctrine\ORM\Tools\Console\ConsoleRunner::run($helperSet);

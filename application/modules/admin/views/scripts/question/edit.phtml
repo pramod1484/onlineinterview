@@ -1,0 +1,195 @@
+<div class="col-xs-12 col-sm-12">
+    <div class="box ">
+		<div class="box-header">
+			<div class="box-name text-center">
+                <span>Edit Question</span>
+			</div>
+		</div>
+        <div class="panel-body">
+			<form action="<?php echo $this->form->getAction() ?>"
+				id="questionForm" method="<?php echo $this->form->getMethod() ?>"
+                enctype="multipart/form-data" >
+				<div class="col-xs-4">
+					<div
+						class="form-group <?php if (count($this->form->categoryType->getMessages())) echo 'has-error' ?>">
+						<label for="category" class="col-sm-6 control-label text-danger">Select category* :</label>
+						<div class="col-sm-12">
+                            <?php echo $this->form->categoryType->renderViewHelper(); ?>
+                            <?php echo $this->form->categoryType->renderErrors(); ?>
+                        </div>
+					</div>
+				</div>
+				<div class="col-md-offset-2 col-xs-4">
+					<div
+						class="form-group <?php if (count($this->form->marks->getMessages())) echo 'has-error' ?>">
+						<label for="marks" class="col-sm-6 control-label text-danger">Select marks* :</label>
+						<div class="col-sm-12">
+                            <?php echo $this->form->marks->renderViewHelper(); ?>
+                            <?php echo $this->form->marks->renderErrors(); ?>
+                        </div>
+					</div>
+				</div>
+
+				<div class="col-sm-12">
+                   
+					<div
+						class="form-group <?php if (count($this->form->question->getMessages())) echo 'has-error' ?>">
+                        <label for="question" class="col-sm-6 control-label text-danger">Select marks* :</label>
+						
+                        <div class="col-sm-push-1 col-sm-10">
+                            <?php echo $this->form->question->renderViewHelper(); ?>
+                            <?php echo $this->form->question->renderErrors(); ?>
+                        </div>
+					</div>
+				</div>
+                <div class="clearfix" style="margin-top:15px;"></div>
+                
+				<div class="form-group" style="margin-top:15px;">
+					<div class="col-xs-4">
+						<div
+							class="form-group <?php if (count($this->form->questionType->getMessages())) echo 'has-error' ?>">
+							<label for="questionType" class="col-sm-8 control-label text-danger">Select question type* :</label>
+							<div class="col-sm-12">
+                                <?php echo $this->form->questionType->renderViewHelper(); ?>
+                                <?php echo $this->form->questionType->renderErrors(); ?>
+                            </div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-10 col-sm-10 center-block">
+						<div id="options" class="hide optiondivs col-xs-6 col-sm-6">
+						<label for="options" class="control-label text-danger">Options* :</label>
+                            <?php
+                            for ($i = 1; $i <= 4; $i ++) {
+                                $options = 'option' . $i;
+                                ?>
+                                <div
+								class="<?php if (count($this->form->$options->getMessages())) echo 'has-error' ?>">
+
+                                    <?php echo $this->form->$options->renderViewHelper(); ?>
+                                    <?php echo $this->form->$options->renderErrors(); ?>
+
+                                </div>
+                            <?php } ?>
+
+
+                        </div>
+						<div class="hide optiondivs" id="freetextarea">
+							<div
+								class="form-group <?php if (count($this->form->freeTextArea->getMessages())) echo 'has-error' ?>">
+								<label for="answer" class="col-sm-12 control-label">Expected result :</label>
+								<div class="col-sm-6">
+                                    <?php echo $this->form->freeTextArea->renderViewHelper(); ?>
+                                    <?php echo $this->form->freeTextArea->renderErrors(); ?>
+                                </div>
+							</div>
+						</div>
+						<div class="hide optiondivs" id="freetextbox">
+							<div
+								class="form-group <?php if (count($this->form->freeTextBox->getMessages())) echo 'has-error' ?>">
+								<label for="answer" class="col-sm-12 control-label">Expected result :</label>
+								<div class="col-sm-5">
+                                    <?php echo $this->form->freeTextBox->renderViewHelper(); ?>
+                                    <?php echo $this->form->freeTextBox->renderErrors(); ?>
+                                </div>
+							</div>
+						</div>
+						<div id="answers">
+							<div class="hide optiondivs  col-xs-6 col-sm-6" id="chkanswers">
+								<div
+									class="form-group <?php if (count($this->form->checkBox->getMessages())) echo 'has-error' ?>">
+									<label for="answer" class="col-sm-12 control-label text-danger">Expected result* :</label>
+									<div class="col-sm-12">
+                                        <?php
+                                        echo $this->form->checkBox->renderViewHelper();
+                                        ?>
+<?php echo $this->form->checkBox->renderErrors(); ?>
+                                    </div>
+								</div>
+							</div>
+
+							<div class="hide optiondivs  col-xs-6 col-sm-6" id="radioanswers">
+								<div
+									class="form-group <?php if (count($this->form->radio->getMessages())) echo 'has-error' ?>">
+									<label for="answer" class="col-sm-12 control-label text-danger">Expected result* :</label>
+									<div class="col-sm-12">
+                                        <?php echo $this->form->radio->renderViewHelper(); ?>
+<?php echo $this->form->radio->renderErrors(); ?>
+                                    </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+				<div class="form-action">
+
+					<div class="col-sm-10">
+						<div class="box-footer">
+							<div class="col-sm-6">
+                                <?php echo $this->form->Save; ?>
+                                <?php echo $this->form->Reset; ?>
+<?php echo $this->form->Cancel; ?>
+                            </div>
+						</div>
+					</div>
+			     </div>
+			</form>
+	</div>
+
+
+
+
+
+
+
+		<script
+			src="<?php echo $this->baseUrl('/assets/ckeditor/ckeditor.js') ?>"></script>
+		<script>
+          
+        $(document).ready(function() {
+             CKEDITOR.replace( 'question',
+        {
+
+        filebrowserImageUploadUrl : '<?php echo $this->Url(array('controller'=>'question','module'=>'admin','action'=>'editor-image-upload'),'',TRUE) ?>',
+
+        });
+         
+
+
+        hideShowDivs($( "#questionType" ).val());
+        $( "#questionType" ).change(function(event) {
+        event.preventDefault();
+        hideShowDivs(this.value);
+        });
+     
+	// Add tooltip to form-controls
+	$('.form-control').tooltip();
+	
+	// Load example of form validation
+//	LoadBootstrapValidatorScript(questionFormValidator);
+	// Add drag-n-drop feature to boxes
+	WinMove();
+
+        });
+        function hideShowDivs(id){
+        $(".optiondivs").addClass('hide');
+        $(".optiondivs").val('');
+        switch(id){
+        case '1' : $("#options").removeClass('hide');
+        $("#chkanswers").removeClass('hide');
+        break;
+        case '2' : $("#options").removeClass('hide');
+        $("#radioanswers").removeClass('hide');
+        break;
+        case '3' : 
+        $("#freetextarea").removeClass('hide');
+        break;
+        case '4' :
+        $("#freetextbox").removeClass('hide');
+        break;
+        default :  $("#options").addClass('hide');
+        }}
+    
+</script>

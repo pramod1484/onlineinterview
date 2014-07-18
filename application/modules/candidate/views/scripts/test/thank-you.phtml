@@ -1,0 +1,29 @@
+<div
+	class="col-xs-12 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 text-center">
+	<div class="alert bg-info">
+        <?php echo $this->message; ?>
+    </div>
+	<a onclick="javascript:getExit()"
+		href="<?php
+echo $this->url(
+        array(
+                'module' => 'default',
+                'controller' => 'login',
+                'action' => 'log-out'
+        ))?>"
+		class="btn btn-default">Exit</a>
+</div>
+<script>
+    function getExit() {
+        window.location = '<?php
+        echo $this->url(
+                array(
+                        'module' => 'default',
+                        'controller' => 'login',
+                        'action' => 'log-out'
+                ))?>';
+         window.opener.location.reload();
+        parent.focus();
+        window.close();
+    }
+</script>

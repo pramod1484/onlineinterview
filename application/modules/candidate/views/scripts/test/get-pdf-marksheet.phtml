@@ -1,0 +1,96 @@
+<div id="logo" class="col-xs-12 col-sm-2" align="center">
+				<img
+                    src="<?php echo $this->baseUrl('/assets/img/logo.png'); ?>" /><h3 >Ansh Online Interview App</h3>
+			</div>
+<table>
+    <tr>
+        <th colspan="2">
+                 <h3><span align="center">Mark Sheet</span></h3>
+            </th>
+    </tr>
+    <tbody>
+        <tr>
+            <td><b>CandiDate Name : </b><span> <?php echo $this->escape($this->candidateDetails->getCandidate()->getUser()->getFullName()); ?></span></td>
+            <td align="right"><b>Email : </b><span> <?php echo $this->escape($this->candidateDetails->getCandidate()->getUser()->getEmail()); ?></span></td>
+        </tr>
+         <tr>
+            <td><b>Position applied for : </b><span> <?php echo $this->escape($this->candidateDetails->getCandidate()->getJobPosition()->getPosition()); ?></span></td>
+            <td align="right"><b>Contact No : </b><span> <?php echo $this->escape($this->candidateDetails->getCandidate()->getMobileNo()); ?></span></td>
+        </tr>
+    </tbody>
+</table>
+<hr>
+			
+   
+			
+
+            <?php  foreach ($this->testResult as $result) { ?>
+                <h4>Category name :<?php echo $result['categoryName'] ?></h4>
+			
+                        <?php
+                foreach ($result['questionDetails'] as $key => $questionDetails) {
+                        
+                    ?>
+              
+                <table align="left">
+                    <tr> <td colspan="2"><b>Question <?php echo $key+1 ?>.</b></td></tr>
+                    <tr>
+                     <td colspan="2">
+                       <?php echo('<b>'. (str_replace('</p>','</div>',str_replace('<p>', '<div>', $questionDetails['question']))).'</b>'); ?> 
+                        </td>
+                    </tr>
+              <tr>
+		<?php
+                    $expected = unserialize($questionDetails['answers']);
+                            echo '<td width="20%">Expected answer : </td><td width="80%">'; 
+                            print(is_array($expected) ? $this->escape(
+                                    implode(',', $expected)) : $this->escape(
+                                    $expected));
+                
+                    ?> 
+                  </td>
+              </tr>
+              <tr>
+							<?php
+                    $answered = unserialize($questionDetails['q_answers']);
+                     echo '<td width="20%;">Given answer : </td><td width="80%">'; 
+                             print(is_array($answered) ? $this->escape(
+                                    implode(',', $answered)) : $this->escape(
+                                    $answered));
+                           
+                    ?> 
+                  </td>
+              </tr>
+              <tr>
+   <?php echo '<td width="20%;">Time taken : </td><td width="80%"> '; 
+                            print($this->escape(str_replace('.', ':', $questionDetails['q_timeTaken']))); ?>
+           
+               </td>
+              </tr>
+              <tr>
+                  <td width="20%"><?php  echo 'marks scored : ';  ?></td><td width="80%">
+                    <?php
+                    if ($questionDetails['q_remark'] == 4) {
+                    echo 'Yet to review.';
+                    } else {
+                       
+                            print($this->escape($questionDetails['q_marksScored']));
+                    }
+                    if ($questionDetails['q_remark'] == 5)
+                        print
+                                ('<small class="label label-danger">Time Up</small>');
+                    ?> 
+                  </td>
+              </tr>
+              <tr><td></td><td></td></tr>
+  </table>
+                        <?php } ?> 
+
+                        
+				
+			<?php
+            
+}
+            ?>
+
+        

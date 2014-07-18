@@ -1,0 +1,100 @@
+<div class="col-xs-7 col-sm-6 col-sm-push-3">
+    <div class="box ">
+		<div class="box-header">
+			<div class="box-name text-center">
+				 <span>Edit Category</span>
+			</div>
+		</div>
+		<div class="box-content">
+            <?php echo $this->categoryForm->renderForm(false); ?>
+            <div
+				class="form-group <?php if (count($this->categoryForm->categoryName->getMessages())) echo 'has-error' ?>">
+                <?php echo $this->categoryForm->categoryName->renderLabel(); ?>
+                <div class="col-sm-6">
+                    <?php echo $this->categoryForm->categoryName->renderViewHelper(); ?>
+                    <?php echo $this->categoryForm->categoryName->renderErrors(); ?>
+                </div>
+			</div>
+			<div
+				class="form-group <?php if (count($this->categoryForm->timeToFinishCategory->getMessages())) echo 'has-error' ?>">
+                <?php echo $this->categoryForm->timeToFinishCategory->renderLabel(); ?>
+                <div class="col-sm-6">
+                    <?php echo $this->categoryForm->timeToFinishCategory->renderViewHelper(); ?>
+                    <?php echo $this->categoryForm->timeToFinishCategory->renderErrors(); ?>
+                </div>
+			</div>
+			<div
+				class="form-group <?php if (count($this->categoryForm->categoryImage->getMessages())) echo 'has-error' ?>"">
+				<label for="categoryImage" class="col-sm-4 control-label">Category
+					Image : </label>
+				<div class="col-sm-6">
+                    <?php echo $this->categoryForm->categoryImage; ?>
+                    <div id="img" style = "<?php
+                    if ($this->categoryForm->categoryImage->getValue() == '') {
+                        echo 'display:none';
+                    }
+                    ?>" >
+						<img width="75" height="75"
+							src="<?php echo $this->baseUrl('uploads/categoryImages') . DIRECTORY_SEPARATOR . $this->categoryForm->categoryImage->getValue(); ?>">
+						<a
+							href="javascript:removeCategoryImage(<?php echo $this->escape($this->categoryForm->id->getValue()); ?>)">remove</a>
+					</div>
+
+				</div>
+			</div>
+			<div class="form-group">
+                <div class="col-sm-3"></div>
+				<div class="col-sm-push-1 col-sm-9">
+                        <div class="col-sm-12">
+                            <?php echo $this->categoryForm->Save; ?>
+                            <?php echo $this->categoryForm->Reset; ?>
+                            <?php echo $this->categoryForm->Cancel; ?>
+                        </div>
+                </div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+<?php $this->headScript()->captureStart()?>
+function removeCategoryImage(categoryId) {
+var confirmAction = confirm("Are you sure to delete this category image?");
+if (confirmAction) {
+
+$.post('<?php
+echo $this->url(
+        array(
+                'controller' => 'question-category',
+                'action' => 'delete-category-image',
+                'module' => 'Admin'
+        ), 'default');
+?>',
+{categoryId: categoryId}, function(data) {
+
+if ($.trim(data) === '1') {
+$('#img').remove();
+location.reload(); 
+}else{
+alert(data);
+}
+});
+}
+
+}
+$(document).ready(function() {
+	// Add tooltip to form-controls
+	$('.form-control').tooltip();
+	
+	// Load example of form validation
+	LoadBootstrapValidatorScript(categoryFormValidator);
+	// Add drag-n-drop feature to boxes
+	WinMove();
+});
+<?php $this->headScript()->captureEnd()?>
+
+
+

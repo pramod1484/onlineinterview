@@ -1,0 +1,59 @@
+<!--form for add new Test -->
+<div class="col-xs-7 col-sm-6 col-sm-push-3">
+    <div class="box ">
+		<div class="box-header">
+			<div class="box-name text-center">
+				 <span>Add Test</span>
+			</div>
+		</div>
+		<div class="box-content">
+            <?php echo $this->form->renderForm(false); ?>
+            <div
+				class="form-group <?php if (count($this->form->testName->getMessages())) echo 'has-error' ?>">
+                <?php echo $this->form->testName->renderLabel(); ?>
+                <div class="col-sm-8">
+                    <?php echo $this->form->testName->renderViewHelper(); ?>
+                    <?php echo $this->form->testName->renderErrors(); ?>
+                </div>
+			</div>
+			<div
+				class="form-group <?php if (count($this->form->technology->getMessages())) echo 'has-error' ?>">
+                <?php echo $this->form->technology->renderLabel(); ?>
+                <div class="col-sm-8">
+                    <?php echo $this->form->technology->renderViewHelper(); ?>
+                    <?php echo $this->form->technology->renderErrors(); ?>
+                </div>
+			</div>
+			<div
+				class="form-group <?php if (count($this->form->categoryType->getMessages())) echo 'has-error' ?>">
+                <?php echo $this->form->categoryType->renderLabel(); ?>
+                <div class="col-sm-8">
+                    <?php echo $this->form->categoryType->renderViewHelper(); ?>
+                    <?php echo $this->form->categoryType->renderErrors(); ?>
+                </div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-9">
+						<div class="col-sm-offset-4 col-sm-8">
+                            <?php echo $this->form->Save; ?>
+                            <?php echo $this->form->Reset; ?>
+                            <?php echo $this->form->Cancel; ?>
+                        </div>
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
+
+	<script type="text/javascript">
+$(document).ready(function() {
+    
+	// Add tooltip to form-controls
+	$('.form-control').tooltip();
+	
+	// Load example of form validation
+	LoadBootstrapValidatorScript(testFormValidator);
+	// Add drag-n-drop feature to boxes
+	WinMove();
+});
+</script>

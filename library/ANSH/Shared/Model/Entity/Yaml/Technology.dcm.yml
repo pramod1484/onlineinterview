@@ -1,0 +1,29 @@
+Technology:
+    type: entity
+    table: technology
+    fields:
+        id:
+            id: true
+            type: boolean
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        technologyName:
+            type: string
+            length: 128
+            fixed: false
+            nullable: false
+            column: technology_name
+        isEnabled:
+            type: boolean
+            nullable: false
+            column: is_enabled
+        createdDate:
+            type: datetime
+            nullable: false
+            column: created_date
+        modifiedDate:
+            type: datetime
+            nullable: false
+            column: modified_date
+    lifecycleCallbacks: {  }

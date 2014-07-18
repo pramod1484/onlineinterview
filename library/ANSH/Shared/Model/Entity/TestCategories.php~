@@ -1,0 +1,59 @@
+<?php
+
+
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TestCategories
+ *
+ * @ORM\Table(name="test_categories")
+ * @ORM\Entity
+ */
+class TestCategories
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_date", type="datetime", nullable=false)
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="modified_date", type="datetime", nullable=false)
+     */
+    private $modifiedDate;
+
+    /**
+     * @var \QuestionCategories
+     *
+     * @ORM\ManyToOne(targetEntity="QuestionCategories")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * })
+     */
+    private $category;
+
+    /**
+     * @var \Tests
+     *
+     * @ORM\ManyToOne(targetEntity="Tests")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="test_id", referencedColumnName="id")
+     * })
+     */
+    private $test;
+
+
+}

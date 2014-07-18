@@ -1,0 +1,128 @@
+ 
+<?php //var_dump($this->testResult['candidateDetails']); ?>
+<script>
+    $(function() {
+        var chart;
+        $(document).ready(function() {
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'container',
+                    type: 'column',
+                 
+                },
+                title: {
+                    text: ''
+                },
+                credits: {
+                    text: 'Ansh Systems Pvt. Ltd.',
+                    href: 'http://www.ansh-systems.com'
+
+                },
+                xAxis: {
+                    categories: [<?php
+                    foreach ($this->testResult as $result) {
+                        
+                        echo '"' . $result['categoryName'] . '",';
+                    }
+                    ?>],
+                    labels: {
+                        rotation: -50,
+                        align: 'right',
+                        style: {
+                            fontSize: '12px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                },
+                yAxis: {
+                    allowDecimals: false,
+                    min: 0,
+                    title: {
+                        text: 'Marks'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                        tooltip: {
+                formatter: function() {
+                    return '<b>'+ this.x +'</b><br/>'+
+                        this.series.name +': '+ this.y +'<br/>'+
+                        'out of : '+ this.point.stackTotal;
+                }
+            },            plotOptions: {
+                column: {
+                    stacking: 'normal'
+                },
+                
+            },
+                series: [{
+                        name: 'Not scored',
+                 
+                         data: [<?php
+                        foreach ($this->testResult as $result) {
+                            $color = "'#DBDBDB'";
+                            echo '{ y:' .
+                                     ($result['result']['catTotal'] -
+                                     $result['result']['scored']) . ',color: ' .
+                                     $color . '  } ,';
+                        }
+                        ?>],tooltip: {
+                            enabled: false,}
+                    },{
+                        name: 'Scored',
+                 
+                        data: [<?php
+                        foreach ($this->testResult as $result) {
+                            $color = "'#008000'";
+                            
+                            echo '{ y:' . $result['result']['scored'] .
+                                     ',color: ' . $color . '  } ,';
+                        }
+                        ?>],
+                        dataLabels: {
+                            enabled: true,
+                            rotation: -1,
+                            color: '#FFFFFF',
+                            align: 'center',
+                            x: 4,
+                            y: 10,
+                            style: {
+                                fontSize: '13px',
+                                fontFamily: 'Verdana, sans-serif'
+                            }
+                        }
+                    }],
+                exporting: {
+                    enabled: false
+                }
+            });
+        });
+
+    });
+
+</script>
+
+<div class="modal-dialog " style="width: 50%">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">
+				<i class="glyphicon glyphicon-remove"></i>
+			</button>
+			  <h3 class="modal-title text-center" id="myModalLabel">Report </h3>
+			<div class="pull-left">Candidate name : <?php echo $this->escape($this->candidateDetails->getCandidate()->getUser()->getFullName()); ?></div>
+            <div class="pull-right">Candidate email : <?php echo $this->escape($this->candidateDetails->getCandidate()->getUser()->getEmail()); ?></div><br>
+			<div class="pull-left">Position applied for : <?php echo $this->escape($this->candidateDetails->getCandidate()->getJobPosition()->getPosition()); ?></div>
+			<div class="pull-right">Candidate mobile : <?php echo $this->escape($this->candidateDetails->getCandidate()->getMobileNo()); ?></div>
+			
+		</div>
+
+
+		<div class="modal-body">
+
+			<div id="container"></div>
+		</div>
+
+	</div>
+</div>

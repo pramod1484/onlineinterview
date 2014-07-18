@@ -1,0 +1,263 @@
+<?php
+// add new question
+$this->headLink()->appendStylesheet($this->baseUrl('/assets/css/answers.css'));
+
+$this->headScript()->appendFile($this->baseUrl('/assets/js/jquery.plugin.js'));
+$this->headScript()->appendFile(
+        $this->baseUrl('/assets/js/jquery.countdown.js'));
+
+?>
+<?php if ($this->candidateTestCategories) { ?>
+<div class="col-xs-12 col-sm-12 center-block">
+
+	<div class="panel panel-default">
+		<div class="text-center">
+            <h4><img src="<?php echo $this->baseUrl('/assets/img/logo.png'); ?>" /> Ansh Online Interview App</h4>
+		</div>
+		<div class="panel-heading">
+			<div class="panel-title">
+				<div class='row cat_details hide'>
+                <div class="col-sm-10"> Categories : <?php foreach ($this->candidateTestCategories as $cats) {
+        print_r('<span class="'.$cats['id'].' cats btn">'.$cats['categoryName'].'</span>');
+        } ?></div>
+					<div align="right col-sm-2 ">
+                        <div class="timer text-info">
+						Time To Finish : <span id='timer'><?php echo(date('h:i:s', (mktime(0, $this->candidateTestCategories[0]['timeToFinish'])))); ?></span>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div class="catinfo text-center">
+				Category : <span class='catName' id="curCat"><?php echo(print_r($this->candidateTestCategories[0]['categoryName'], TRUE)); ?></span>
+				</p>
+				Time To Finish : <span class='time'><?php echo($this->candidateTestCategories[0]['timeToFinish']); ?></span>
+				Minutes
+			</div>
+			<div id="cosntent">
+				<form method="post" onsubmit="return false" id="answers">
+                        <?php echo $this->formHidden('nextRow', $this->escape($this->firstQuestion['first'])); ?>
+                        <?php echo $this->formHidden('testStartTime', time()); ?>
+                    </form>
+			</div>
+			<div id='qloader' class="text-center hide">
+				<img src="<?php echo $this->baseUrl('assets/img/loder.GIF') ?>"> </img>
+			</div>
+
+
+			<div class="row" align="center">
+
+                <?php echo $this->formButton("start", 'Start test'); ?>
+                <a
+					href="<?php echo $this->url(array('action' => 'thank-you')) ?>"
+					class="btn btn-warning hide" id="exit">Exit Test</a>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+var exit =1;
+       
+
+                //script for save answers and get new categories
+                var categories = <?php echo Zend_Json_Encoder::encode($this->candidateTestCategories); ?>
+
+
+
+                var count = 1;
+                $("#start").addClass('btn btn-primary');
+
+                $("#start").click(function() {
+                  
+                    $('#qloader').removeClass('hide');
+                    $('#cosntent').hide();
+                    $("#start").hide();
+                    $("#start").html("Next");
+                      
+                    startExam(false);
+                 
+
+                });
+
+                function startExam(end) {
+
+                    if (categories) {
+
+                        var category = '';
+                        var url = "<?php echo $this->url(array('action' => 'get-question')); ?>"
+
+                        $('.catinfo').hide();
+                        $('.cat_details').removeClass('hide');
+                        
+                         catclass = "." + categories[0]['id'];
+                        $(".cats").removeClass('btn-warning');
+                                $(catclass).addClass('btn-warning');
+                        countdown((categories[0]['timeToFinish']) * 60);
+
+                        if ($("#nextRow").val() == '' || (end === true)) {
+                            count = 0;
+
+                            categories.shift();
+
+                            $('.catinfo').show();
+                            $('.cat_details').addClass('hide');
+                            if (categories.length > 0)
+                            {
+                                $("#curCat").html(categories[0]['categoryName'])
+                                  $(".timer").addClass('text-info'); 
+        $(".timer").removeClass('text-danger'); 
+                                
+            $(".time").html(categories[0]['timeToFinish']);
+                                
+            $("#timer").html(categories[0]['timeToFinish']);
+                                $('#timer').countdown('destroy');
+
+                                category = categories[0]['id'];
+                            }
+                            
+                            $("#start").html("Continue Test");
+                        }
+
+
+
+                        var data = $("#answers").serialize();
+
+                        data += '&category=' + category + '&endTime=<?php echo time(); ?>';
+                        if (end === true)
+                            data += '&end=' + end;
+
+
+                        $.post(url, data, function(res, status, xhr) {
+                            window.scroll(0,0);
+                            $("#start").show();
+                            $('#qloader').addClass('hide');
+                            $('#cosntent').show();
+                            $("#cosntent").html(res);
+                            if (res == '1') {
+                                exit = 0;
+                                $("#islast").html('');
+                                $('.catinfo').hide();
+                                $("#cosntent").html('');
+                                $('#exit').removeClass('hide');
+                                $('#start').remove();
+                            }
+//                            if(end == true) {
+//                                  
+//                            }
+                           
+                        })
+                                .done(function(responce) {
+                                    $(".questionNo").html(count++);
+                                    $("#totalQuestion").html(categories[0]['questionCount']);
+                                    // TODO remove comments                                   
+    //                                    if (($("#nextRow").val() == ""))
+    //                                    {
+    //                                        $("#islast").html('its last question')
+    //                                    }
+    //                                    else {
+    //                                        $("#islast").html('');
+    //                                    }
+
+                                })
+                    } else {
+
+                        $("#start").html("Finish test");
+
+                    }
+                }
+                function countdown(time) {
+                      $('#timer').countdown({until: time, compact: true, onExpiry: endExam, onTick: highlightLast2min ,format: 'HMS'});
+                }
+                function highlightLast2min(periods) { 
+    if ($.countdown.periodsToSeconds(periods) === 120) { 
+        $(".timer").removeClass('text-info'); 
+        $(".timer").addClass('text-danger'); 
+    } 
+} 
+                function endExam() {
+                    
+                   $('#qloader').removeClass('hide');
+                    $('#cosntent').hide();
+                    $("#start").hide();
+                    $("#nextRow").val('');
+                    startExam(true);
+                    alert('Opps Time up!');
+                }
+                $('#exit').click(function() {
+                    exit = 0;
+                    refreshParent;
+                    $(this).remove();
+                })
+                         window.onunload = refreshParent;
+        function refreshParent() {
+           
+            window.opener.location.reload();
+        }
+
+                //script for disable right click
+                var message = "Right click is not allowed here.";
+                function clickIE4() {
+
+                    if (event.button == 2) {
+                        alert(message);
+                        return false;
+                    }
+                }
+
+                function clickNS4(e) {
+                    if (document.layers) {
+                        if (e.which == 2 || e.which == 3) {
+                            alert(message);
+                            return false;
+                        }
+                    }
+                }
+
+                if (document.layers) {
+                    document.captureEvents(Event.MOUSEDOWN);
+                    document.onmousedown = clickNS4;
+                }
+
+                else if (!document.getElementById) {
+                    document.onmousedown = clickIE4;
+                }
+
+                document.oncontextmenu = new Function("alert(message);return false;")
+                //end script for disable right click 
+
+                //function for disable refresh page start here
+                // TODO remove on production
+                function disableF5(e) {
+                    if (e.ctrlKey == 1)
+                    {
+                        return false;
+                    }
+                    if ((e.which || e.keyCode) == 116)
+                        e.preventDefault();
+                }
+                ;
+                $(document).ready(function() {
+                    $(document).on("keydown", disableF5);
+
+                });
+                //end funtion for disabling refresh
+                $(window).bind('beforeunload', function(event) {
+                    if(exit == 1) {
+                    event.preventDefault();
+                    return 'Test will exit on close this window.Are you sure?';
+                    }
+                });
+                
+            </script>
+<?php
+} else {
+    echo '<a href= "' . $this->url(
+            array(
+                    'controller' => 'test',
+                    'action' => ''
+            )) . '" >Please goto test</a>';
+}
+?>

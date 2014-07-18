@@ -1,0 +1,64 @@
+CandidateTests:
+    type: entity
+    table: candidate_tests
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        remark:
+            type: boolean
+            nullable: true
+        startTime:
+            type: datetime
+            nullable: true
+            column: start_time
+        endTime:
+            type: datetime
+            nullable: true
+            column: end_time
+        totalMarks:
+            type: integer
+            unsigned: false
+            nullable: true
+            column: total_marks
+        createdDate:
+            type: datetime
+            nullable: false
+            column: created_date
+        modifiedDate:
+            type: datetime
+            nullable: false
+            column: modified_date
+    manyToOne:
+        candidate:
+            targetEntity: Candidates
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                candidate_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        test:
+            targetEntity: Tests
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                test_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        checkedBy:
+            targetEntity: Users
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                checked_by:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

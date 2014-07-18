@@ -1,0 +1,51 @@
+QuestionBank:
+    type: entity
+    table: question_bank
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        question:
+            type: text
+            nullable: true
+        options:
+            type: text
+            nullable: true
+        answers:
+            type: text
+            nullable: false
+        marks:
+            type: boolean
+            nullable: true
+        createdDate:
+            type: datetime
+            nullable: false
+            column: created_date
+        modifiedDate:
+            type: datetime
+            nullable: false
+            column: modified_date
+    manyToOne:
+        category:
+            targetEntity: QuestionCategories
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                category_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        questionType:
+            targetEntity: QuestionTypes
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                question_type_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

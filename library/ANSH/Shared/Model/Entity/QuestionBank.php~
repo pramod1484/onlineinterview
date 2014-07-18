@@ -1,0 +1,87 @@
+<?php
+
+
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * QuestionBank
+ *
+ * @ORM\Table(name="question_bank")
+ * @ORM\Entity
+ */
+class QuestionBank
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="question", type="text", nullable=true)
+     */
+    private $question;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="options", type="text", nullable=true)
+     */
+    private $options;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="answers", type="text", nullable=false)
+     */
+    private $answers;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="marks", type="boolean", nullable=true)
+     */
+    private $marks;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_date", type="datetime", nullable=false)
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="modified_date", type="datetime", nullable=false)
+     */
+    private $modifiedDate;
+
+    /**
+     * @var \QuestionCategories
+     *
+     * @ORM\ManyToOne(targetEntity="QuestionCategories")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * })
+     */
+    private $category;
+
+    /**
+     * @var \QuestionTypes
+     *
+     * @ORM\ManyToOne(targetEntity="QuestionTypes")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="question_type_id", referencedColumnName="id")
+     * })
+     */
+    private $questionType;
+
+
+}

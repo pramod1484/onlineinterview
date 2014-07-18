@@ -1,0 +1,39 @@
+TestCategories:
+    type: entity
+    table: test_categories
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: true
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        createdDate:
+            type: datetime
+            nullable: false
+            column: created_date
+        modifiedDate:
+            type: datetime
+            nullable: false
+            column: modified_date
+    manyToOne:
+        category:
+            targetEntity: QuestionCategories
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                category_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        test:
+            targetEntity: Tests
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                test_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

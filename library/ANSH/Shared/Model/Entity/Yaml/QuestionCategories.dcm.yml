@@ -1,0 +1,38 @@
+QuestionCategories:
+    type: entity
+    table: question_categories
+    fields:
+        id:
+            id: true
+            type: boolean
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        categoryName:
+            type: string
+            length: 128
+            fixed: false
+            nullable: false
+            column: category_name
+        timeToFinish:
+            type: boolean
+            nullable: false
+            column: time_to_finish
+        totalMarks:
+            type: integer
+            unsigned: false
+            nullable: true
+            column: total_marks
+        isEnabled:
+            type: boolean
+            nullable: false
+            column: is_enabled
+        createdDate:
+            type: datetime
+            nullable: false
+            column: created_date
+        modifiedDate:
+            type: datetime
+            nullable: false
+            column: modified_date
+    lifecycleCallbacks: {  }

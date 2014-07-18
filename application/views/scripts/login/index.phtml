@@ -1,0 +1,81 @@
+<div id="page-login" class="row">
+	<div
+		class="col-xs-12 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+
+		<div class="box">
+			<div class="text-center box-name">
+                <h3>
+                <img src="<?php echo $this->baseUrl('/assets/img/logo.png'); ?>" /> Ansh Online Interview App</h3>
+			</div>
+			<form class="box-contentLogin" role="form"
+				action="<?php echo $this->loginForm->getAction(); ?>"
+				method="<?php echo $this->loginForm->getMethod() ?>">
+				<div class="text-center">
+
+					<h3 class="page-header">Welcome</h3>
+				</div>
+                <?php  $flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper(
+                    'flashMessenger')->getMessages();
+            
+            if (! empty($flashMessenger)) {
+                
+                if (isset($flashMessenger[0]['success'])) {
+                    echo '<div class="msg alert alert-success">' .
+                             $flashMessenger[0]['success'] . '</div>';
+                } else 
+                    if (isset($flashMessenger[0]['error'])) {
+                        echo '<div class="msg alert alert-danger">' .
+                                 $flashMessenger[0]['error'] . '</div>';
+                    } else 
+                        if (isset($flashMessenger[0]['warning'])) {
+                            echo '<div class="msg alert alert-warning">' .
+                                     $flashMessenger[0]['warning'] . '</div>';
+                        }
+            } ?>
+				<div
+					class="form-group <?php if (count($this->loginForm->email->getMessages()) || ! empty($this->message)) echo 'has-error' ?>">
+                    <?php
+                    if ($this->loginForm->email->getValue() == "" ||
+                             count($this->loginForm->email->getMessages()) ||
+                             $this->message)
+                        $this->loginForm->email->setAttrib('autofocus', TRUE);
+                    echo $this->loginForm->email;
+                    ?>
+                        <?php echo $this->loginForm->requestUrl; ?>
+                        <?php echo $this->loginForm->csrf; ?>
+                </div>
+				<div
+					class="form-group <?php if (count($this->loginForm->password->getMessages()) || ! empty($this->message)) echo 'has-error' ?>">
+                    <?php
+                    if ($this->loginForm->password->getValue() == "" ||
+                             count($this->loginForm->password->getMessages()))
+                        $this->loginForm->password->setAttrib('autofocus', TRUE);
+                    echo $this->loginForm->password;
+                    ?>
+                </div>
+                  <?php
+
+    
+    if (! empty($this->message)) {
+        
+        echo '<div class="text-danger">' . $this->message . '</div>';
+    }
+    ?>
+
+				<!--                           <label class="checkbox">
+                <?php
+                // TODO remove it
+                // echo $this->loginForm->remember;
+                ?>
+                    Remember Me</label>-->
+
+				<div class="text-center">
+					<button class="btn btn-primary">Sign in</button>
+				</div>
+			</form>
+		</div>
+	</div>
+    <?php
+    $this->headLink()->appendStylesheet(
+            $this->baseUrl('/assets/css/custom.css'));
+    ?>

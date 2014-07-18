@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<title>Ansh Online Interview App - <?php echo Zend_Controller_Front::getInstance()->getRequest()->getControllerName() . '/' . Zend_Controller_Front::getInstance()->getRequest()->getActionName() ?></title>
+
+
+
+<!-- include libraries(jQuery, bootstrap, font awesome) -->
+
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href='//fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'
+	type='text/css'>
+<link
+	href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href="<?php echo $this->baseUrl('/assets/css/custom.css'); ?>"
+	rel="stylesheet">
+<?php
+echo $this->headLink();
+echo $this->headStyle();
+?>
+<?php
+
+$this->jQuery()
+    ->enable()
+    ->uiEnable();
+?>
+
+
+<?php
+if ($this->jQuery()->isEnabled()) {
+    $this->jQuery()
+        ->setLocalPath($this->baseUrl('/assets/js/jQuery/jquery-1.10.2.js'))
+        ->setUiLocalPath(
+            $this->baseUrl('/assets/js/jQuery/jquery-ui-1.10.4.min.js'));
+    echo $this->jQuery();
+    echo $this->headScript();
+}
+?>
+<script>
+    var baseUrl = "<?php echo $this->baseUrl(); ?>";
+</script>
+<!--Start Header-->
+<div id="screensaver">
+	<canvas id="canvas"></canvas>
+	<i class="fa fa-lock" id="screen_unlock"></i>
+</div>
+<div id="modalbox">
+	<div class="devoops-modal">
+		<div class="devoops-modal-header">
+			<div class="modal-header-name">
+				<span>Basic table</span>
+			</div>
+			<div class="box-icons">
+				<a class="close-link"> <i class="fa fa-times"></i>
+				</a>
+			</div>
+		</div>
+		<div class="devoops-modal-inner"></div>
+		<div class="devoops-modal-bottom"></div>
+	</div>
+</div>
+<?php
+$zendController = Zend_Controller_Front::getInstance();
+if ($zendController->getRequest()->getActionName() != 'start') :
+    ?>
+<header class="navbar">
+	<div class="container-fluid expanded-panel">
+		<div class="row">
+			<div id="logo" class="col-xs-12 col-sm-2">
+				<a
+					href="<?php
+    echo $this->url(
+            array(
+                    'controller' => 'index',
+                    'action' => 'index',
+                    'module' => Zend_Controller_Front::getInstance()->getRequest()
+                        ->getModuleName()
+            ));
+    ?>"> <img
+					src="<?php echo $this->baseUrl('/assets/img/logo.png'); ?>" /><small>Ansh Online Interview App</small></a> 
+			</div>
+			<div id="top-panel" class="col-xs-12 col-sm-10">
+				<div class="row">
+					<div class="col-xs-8 col-sm-4">
+						<a href="#" class="show-sidebar"> <i class="fa fa-bars"></i>
+						</a>
+						<!--						<div id="search">
+                                                        <input type="text" placeholder="search"/>
+                                                        <i class="fa fa-search"></i>
+                                                    </div>-->
+					</div>
+					<div class="col-xs-4 col-sm-8 top-panel-right">
+						<ul class="nav navbar-nav pull-right panel-menu">
+							<!--							<li class="hidden-xs">
+                                                                <a href="index.html" class="modal-link">
+                                                                    <i class="fa fa-bell"></i>
+                                                                    <span class="badge">7</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="hidden-xs">
+                                                                <a class="ajax-link" href="ajax/calendar.html">
+                                                                    <i class="fa fa-calendar"></i>
+                                                                    <span class="badge">7</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="hidden-xs">
+                                                                <a href="ajax/page_messages.html" class="ajax-link">
+                                                                    <i class="fa fa-envelope"></i>
+                                                                    <span class="badge">7</span>
+                                                                </a>
+                                                            </li>-->
+							<li class="dropdown"><a href="#" class="dropdown-toggle account"
+								data-toggle="dropdown"> <!--									<div class="avatar">
+                                                                                <img src="img/avatar.jpg" class="img-rounded" alt="avatar" />
+                                                                            </div>-->
+									<i class=" glyphicon glyphicon-chevron-down pull-right"></i>
+									<div class="user-mini pull-right">
+										<span class="welcome">Welcome,</span> <span>
+                                                <?php
+    $session = new Zend_Session_Namespace('username');
+    echo ($session->fullName);
+    ?></span>
+									</div>
+							</a>
+								<ul class="dropdown-menu">
+									<!--									<li>
+                                                                                <a href="#">
+                                                                                    <i class="fa fa-user"></i>
+                                                                                    <span class="hidden-sm text">Profile</span>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="ajax/page_messages.html" class="ajax-link">
+                                                                                    <i class="fa fa-envelope"></i>
+                                                                                    <span class="hidden-sm text">Messages</span>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="ajax/gallery_simple.html" class="ajax-link">
+                                                                                    <i class="fa fa-picture-o"></i>
+                                                                                    <span class="hidden-sm text">Albums</span>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="ajax/calendar.html" class="ajax-link">
+                                                                                    <i class="fa fa-tasks"></i>
+                                                                                    <span class="hidden-sm text">Tasks</span>
+                                                                                </a>
+                                                                            </li>-->
+                                     <?php
+        if (Zend_Controller_Front::getInstance()->getRequest()->getModuleName() ==
+                 'admin') { ?>                                 
+                                   	<li><a
+										href="<?php
+    echo $this->url(
+            array(
+                    'controller' => 'user',
+                    'action' => 'change-password',
+                    'module' => 'admin'
+            ))?>"> <i class="glyphicon glyphicon-cog"></i> <span class="text">Change Password</span>
+									</a></li>
+ <?php } ?>
+									<li><a
+										href="<?php
+    echo $this->url(
+            array(
+                    'controller' => 'login',
+                    'action' => 'log-out',
+                    'module' => 'default'
+            ))?>"> <i class="glyphicon glyphicon-off"></i> <span class="text">Logout</span>
+									</a></li>
+								</ul></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<!--End Header-->
+<!--Start Container-->
+<div id="main" class="">
+	<div class="row">
+        <?php endif; ?>
+        <?php
+        if (Zend_Controller_Front::getInstance()->getRequest()->getModuleName() ==
+                 'admin') {
+            
+            $this->navigation()
+                ->menu()
+                ->setPartial('partials/verticalNav.phtml');
+            echo $this->navigation()
+                ->menu()
+                ->render();
+            echo '<div id="content" class="col-xs-12 col-sm-10">';
+        } else {
+            echo '<div id="contentStudent" class="col-xs-12 col-sm-12">';
+        }
+        ?>
+
+        <!--			<div class="preloader">
+                        <img src="img/devoops_getdata.gif" class="devoops-getdata" alt="preloader"/>
+                    </div>-->
+		<div id='loader' class="text-center" style="display: none">
+			<img src="<?php echo $this->baseUrl('assets/img/loder.GIF') ?>"> </img>
+		</div>
+
+
+		<div id="ajax-content">
+            <?php
+            if (Zend_Controller_Front::getInstance()->getRequest()->getModuleName() ==
+                     'admin') {
+                ?>
+            <div class="hide row">
+				<div class="col-md-12 hide " id="breadcrumb"></div>
+			</div>
+            <?php
+            }
+            $flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper(
+                    'flashMessenger')->getMessages();
+            
+            if (! empty($flashMessenger)) {
+                
+                if (isset($flashMessenger[0]['success'])) {
+                    echo '<div class="msg alert alert-success">' .
+                             $flashMessenger[0]['success'] . '</div>';
+                } else 
+                    if (isset($flashMessenger[0]['error'])) {
+                        echo '<div class="msg alert alert-danger">' .
+                                 $flashMessenger[0]['error'] . '</div>';
+                    } else 
+                        if (isset($flashMessenger[0]['warning'])) {
+                            echo '<div class="msg alert alert-warning">' .
+                                     $flashMessenger[0]['warning'] . '</div>';
+                        }
+            }
+            
+            if (($this->errorMessage)) {
+                
+                if (isset($this->errorMessage['success'])) {
+                    echo '<div class="msg alert alert-success">' .
+                             $this->errorMessage['success'] . '</div>';
+                } else 
+                    if (isset($this->errorMessage['error'])) {
+                        echo '<div class="msg alert alert-danger">' .
+                                 $this->errorMessage['error'] . '</div>';
+                    } else 
+                        if (isset($this->errorMessage['warning'])) {
+                            echo '<div class="msg alert alert-warning">' .
+                                     $this->errorMessage['warning'] . '</div>';
+                        }
+            }
+            ?>
+
+<?php echo $this->layout()->content; ?>
+
+
+         
+			
+<script src="<?php echo $this->baseUrl('/assets/plugins/bootstrap/bootstrap.min.js') ?>"></script>
+
+							
+			<script src="<?php echo $this->baseUrl('/assets/js/devoops.js') ?>"></script>
+
+		</div>
+		<script>
+    $(".cancel").click(function() {
+        var confirmAction = confirm("Are you sure to cancel?");
+        if (confirmAction) {
+
+            window.location = "<?php echo $this->url(array('action' => 'list')); ?>";
+        }
+    })
+        </script>
+	</div>
+</div>
+<?php
+if (! empty($flashMessenger)) {
+    if (isset($flashMessenger[0]['pass'])) :
+        ?>
+<div class="modal fade in" data-backdrop="static" id="passModal"
+	tabindex="-1" role="dialog" aria-labelledby="basicModal"
+	aria-hidden="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">
+					<i class="glyphicon glyphicon-remove"></i>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">Account created</h4>
+			</div>
+			<div class="modal-body">
+
+				<h4> <?php echo $flashMessenger[0]['pass']; ?> </h4>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+            $(window).ready(function() {
+                $('#passModal').modal('show');
+            });
+        </script>
+
+    <?php
+    endif;
+}
+?>
+  <div class=" col-md-12 modal in" data-backdrop="static"
+             id="adminModal" tabindex="-1" role="dialog" 
+	aria-labelledby="basicModal" aria-hidden="false"></div>
+        <div class=" col-md-12 modal in" data-backdrop="static"
+             id="commonModal" tabindex="-1" role="dialog" 
+	aria-labelledby="basicModal" aria-hidden="false"></div>
+</div>
+<script>
+    $('#adminModal').on('hidden.bs.modal', function(e) {
+                location.reload();
+    });
+      $('a[data-target="#adminModal"]').on('click', function(event){
+    	 
+         event.preventDefault();
+         $('#adminModal').html('<div class="text-center" style="margin-top:25%"><img src="<?php echo $this->baseUrl('assets/img/loder.GIF') ?>"> </img>');
+         
+        // update modal header with contents of button that invoked the modal
+        $('#adminModalLabel').html( $(this).html() );
+        //fixes a bootstrap bug that prevents a modal from being reused
+        $('#adminModal').load(
+            $(this).attr('href'),
+            function(response, status, xhr) {
+                if (status === 'error') {
+                    //console.log('got here');
+                    $('#adminModal').html('<h2>Oh boy</h2><p>Sorry, but there was an error:' + xhr.status + ' ' + xhr.statusText+ '</p>');
+                }
+                 $('#adminModal').modal('show');
+            
+            }
+        );
+   
+    });
+    
+     $('a[data-target="#commonModal"]').on('click', function(event){
+         event.preventDefault();
+         $('#commonModal').html('<div class="text-center" style="margin-top:25%"><img src="<?php echo $this->baseUrl('assets/img/loder.GIF') ?>"> </img>');
+        // update modal header with contents of button that invoked the modal
+        $('#commonModalLabel').html( $(this).html() );
+        //fixes a bootstrap bug that prevents a modal from being reused
+        $('#commonModal').load(
+            $(this).attr('href'),
+            function(response, status, xhr) {
+                if (status === 'error') {
+                    //console.log('got here');
+                    $('#commonModal').html('<h2>Oh boy</h2><p>Sorry, but there was an error:' + xhr.status + ' ' + xhr.statusText+ '</p>');
+                }
+                 $('#commonModal').modal('show');
+            
+            }
+        );
+   
+    });
+//TODO write js for filtering
+    $('ul.pagination').click(function() {
+
+    })
+    </script>
+</div>
+

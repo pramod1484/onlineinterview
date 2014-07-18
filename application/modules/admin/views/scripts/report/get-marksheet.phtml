@@ -1,0 +1,170 @@
+<div class="modal-dialog " style="width: 80%">
+	<div class="modal-content" id="marklist">
+		<div class="modal-header">
+			<button type="button" class="close btn-close" data-dismiss="modal"
+				aria-hidden="true">
+				<i class="glyphicon glyphicon-remove"></i>
+			</button>
+            <h3 class="modal-title text-center" id="myModalLabel">Mark Sheet</h3>
+			<div class="pull-left">Candidate name : <?php echo $this->escape($this->candidateDetails->getCandidate()->getUser()->getFullName()); ?></div>
+            <div class="pull-right">Candidate email : <?php echo $this->escape($this->candidateDetails->getCandidate()->getUser()->getEmail()); ?></div><br>
+			<div class="pull-left">Position applied for : <?php echo $this->escape($this->candidateDetails->getCandidate()->getJobPosition()->getPosition()); ?></div>
+			<div class="pull-right">Candidate mobile : <?php echo $this->escape($this->candidateDetails->getCandidate()->getMobileNo()); ?></div>
+			
+		</div>
+		<div class="modal-body">
+
+            <?php foreach ($this->testResult as $result) { ?>
+                <h4 class="page-header"><?php echo $result['categoryName'] ?></h4>
+			<table class="table table-striped"
+				id="<?php echo $this->escape($result['id']) ?>">
+				<thead>
+					<tr>
+						<th>Question No:</th>
+						<th>Question</th>
+						<th>Expected Answer</th>
+						<th>Answered</th>
+						<th>Time Taken (min/sec)</th>
+						<th>Marks</th>
+					</tr>
+				</thead>
+				<tbody>
+                        <?php
+                foreach ($result['questionDetails'] as $key => $questionDetails) {
+                    ?>
+
+                        <div class="table-responsive">
+
+						<tr>
+							<td><?php echo $key + 1; ?></td>
+							<td><?php print($questionDetails['question']); ?> </td>
+							<td><?php
+                    $expected = unserialize($questionDetails['answers']);
+                    print
+                            (is_array($expected) ? $this->escape(
+                                    implode(',', $expected)) : $this->escape(
+                                    $expected));
+                    ?> </td>
+							<td><?php
+                    $answered = unserialize($questionDetails['q_answers']);
+                    print
+                            (is_array($answered) ? $this->escape(
+                                    implode(',', $answered)) : $this->escape(
+                                    $answered));
+                    ?> </td>
+							<td>
+                                    <?php print($this->escape(str_replace('.', ':', $questionDetails['q_timeTaken']))); ?>
+                                </td>
+							<td class="col-sm-1"><?php
+                    if ($questionDetails['q_remark'] == 4) {
+                        echo '<div class="has-error" id = ' .
+                                 $this->escape($questionDetails['q_id']) .
+                                 ' >
+                                  
+							  <input type="text" placeholder="Marks" onblur=javascript:marks(this,"' .
+                                 $result['id'] . '") class="form-control marks" data-original-title="" title="" >
+                            
+                           ';
+                        echo ' <small class="has-error">Max marks : <span class="badge"> ' .
+                                 $questionDetails['scored'] .
+                                 '</span></small>   </div>';
+                    } else
+                        print
+                                ('<div class="text-center">' .
+                                         $this->escape(
+                                                $questionDetails['q_marksScored']) .
+                                         '</div>');
+                    if ($questionDetails['q_remark'] == 5)
+                        print
+                                ('<small class="label label-danger">Time Up</small>');
+                    ?> 
+                                </td>
+						</tr>
+
+                        <?php } ?> 
+
+                        
+				
+				</tbody>
+				<tfoot>
+					<tr class="active">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>Total</td>
+						<td><b><?php echo floatval($result['result']['timeTaken']) . '/' . $this->escape($result['timeToFinish']) ?>(min)</b></td>
+						<td><b><?php echo '<span class="tscored' . ($this->escape($result["id"])) . '">' . $result['result']['scored'] . '</span>/' . $this->escape($result['result']['catTotal']) ?></b></td>
+					</tr>
+				</tfoot>
+			</table><?php
+            
+}
+            ?>
+
+        </div>
+		<div class="modal-footer">
+			<button type="button" class="btn-close btn btn-default"
+				data-dismiss="modal">Close</button>
+		</div>
+	</div>
+</div>
+</div>
+<script>
+    emptyMarks = 0;
+    $(document).ready(function(){
+        if($(".marks").size() > 0)
+        {
+            emptyMarks = 1;
+        }
+    })
+    
+    
+    function marks(self, catId) {
+        
+        self = $(self);
+        mark = self.val();
+        if (mark == '') {
+           emptyMarks = 1;
+        }else{
+            emptyMarks = 0;
+        }
+        if (!$.isNumeric(mark) && emptyMarks != 1) {
+            alert('Input Number Only');
+            clearField(self);
+            return false;
+        }
+        if(emptyMarks != 1) {
+            updateMark(self, catId);
+        }
+    }
+        
+    function clearField(self)
+    {
+        setTimeout(function() {
+            self.val('');
+            self.focus();
+        }, 1);
+
+    }
+    function updateMark(self, catId) {
+        question = self.parent('div').prop('id');
+        total = '.tscored' + catId;
+        var mark = self.val();
+        url = "<?php echo $this->url(array('action' => 'update-mark')) ?>";
+        $.post(url, {questionId: question, mark: mark}, function(responce) {
+            if ($.type(responce) !== 'string') {
+              // self.parent('div').removeAttr('id');              
+              //   self.parent('div').html('<div class="text-center">' + mark + '</div>');
+                $(total).html(responce.scored);
+            } else {
+                alert(responce);
+                clearField(self);
+            }
+        })
+    }
+    $(".btn-close").click(function(e) {
+        if(emptyMarks == 1){
+            return confirm('Review not completed. Are you sure for exit?');
+        }
+    })
+</script>

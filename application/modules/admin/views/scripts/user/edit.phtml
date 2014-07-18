@@ -1,0 +1,60 @@
+<div class="col-xs-7 col-sm-6 col-sm-push-3">
+    <div class="box ">
+		<div class="box-header">
+			<div class="box-name text-center">
+				 <span>Edit Users</span>
+			</div>
+		</div>
+		<div class="box-content">
+
+            <?php echo $this->userForm->renderForm(false); ?>
+            <div
+				class="form-group <?php if (count($this->userForm->fullName->getMessages())) echo 'has-error' ?>">
+                <?php echo $this->userForm->fullName->renderLabel(); ?>
+                <div class="col-sm-6">
+                    <?php echo $this->userForm->fullName->renderViewHelper(); ?>
+                    <?php echo $this->userForm->fullName->renderErrors(); ?>
+                </div>
+			</div>
+			<div
+				class="form-group <?php if (count($this->userForm->email->getMessages())) echo 'has-error' ?>">
+                <?php echo $this->userForm->email->renderLabel(); ?>
+                <div class="col-sm-6">
+                    <?php
+                    echo $this->userForm->email->setAttribs(
+                            array(
+                                    'readonly' => TRUE
+                            ))->renderViewHelper();
+                    ?>
+                    <?php echo $this->userForm->email->renderErrors(); ?>
+                    <?php echo $this->userForm->roleId; ?>
+<?php echo $this->userForm->roleId->renderErrors(); ?>
+                </div>
+			</div>
+			<div class="form-group">
+                <div class="col-sm-3"></div>
+				<div class="col-sm-push-1 col-sm-9">
+                        <div class="col-sm-12">
+                            <?php echo $this->userForm->Save; ?>
+                            <?php echo $this->userForm->Reset; ?>
+                            <?php echo $this->userForm->Cancel; ?>
+                        </div>
+                </div>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	// Add tooltip to form-controls
+	$('.form-control').tooltip();
+	
+	// Load example of form validation
+	LoadBootstrapValidatorScript(DemoFormValidator);
+	// Add drag-n-drop feature to boxes
+	WinMove();
+});
+</script>

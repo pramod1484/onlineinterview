@@ -1,0 +1,21 @@
+Cities:
+    type: entity
+    table: cities
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        cityName:
+            type: string
+            length: 128
+            fixed: false
+            nullable: false
+            column: city_name
+        created:
+            type: datetime
+            nullable: false
+    lifecycleCallbacks: {  }

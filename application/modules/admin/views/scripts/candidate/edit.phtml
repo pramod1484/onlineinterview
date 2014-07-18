@@ -1,0 +1,88 @@
+<!--form for add new candidate -->
+<div class="col-xs-7 col-sm-6 col-sm-push-3">
+    <div class="box ">
+		<div class="box-header">
+			<div class="box-name text-center">
+				 <span>Add Candidate</span>
+			</div>
+		</div>
+		<div class="box-content">
+            <?php echo $this->form->renderForm(false); ?>
+            <div
+				class="form-group <?php if (count($this->form->userPartialForm->fullName->getMessages())) echo 'has-error' ?>">
+                <?php echo $this->form->userPartialForm->fullName->renderLabel(); ?>
+                <div class="col-sm-7">
+                    <?php echo $this->form->userPartialForm->fullName->renderViewHelper(); ?>
+                    <?php echo $this->form->userPartialForm->fullName->renderErrors(); ?>
+                </div>
+			</div>
+			<div
+				class="form-group <?php if (count($this->form->userPartialForm->email->getMessages())) echo 'has-error' ?>">
+                <?php echo $this->form->userPartialForm->email->renderLabel(); ?>
+                <div class="col-sm-7">
+                    <?php echo $this->form->userPartialForm->email->setAttrib('readonly', TRUE)->renderViewHelper(); ?>
+                    <?php echo $this->form->userPartialForm->email->renderErrors(); ?>
+                </div>
+			</div>
+			<div
+				class="form-group <?php if (count($this->form->dob->getMessages())) echo 'has-error' ?>">
+				<label class="col-sm-4 control-label text-danger" for="dob">Date of
+					Birth* :</label>
+				<div class="col-sm-7">
+                    <?php echo $this->form->dob->renderUiWidgetElement(); ?>
+                    <?php
+                    echo $this->form->dob->renderErrors();
+                    echo $this->form->roleId->renderViewHelper();
+                    ?>
+                </div>
+			</div>
+			<div
+				class="form-group <?php if (count($this->form->position->getMessages())) echo 'has-error' ?>">
+                <?php echo $this->form->position->renderLabel(); ?>
+                <div class="col-sm-7">
+                    <?php echo $this->form->position->renderViewHelper(); ?>
+                    <?php echo $this->form->position->renderErrors(); ?>
+                </div>
+			</div>
+			<div
+				class="form-group <?php if (count($this->form->test->getMessages())) echo 'has-error' ?>">
+                <?php echo $this->form->test->renderLabel(); ?>
+                <div class="col-sm-7">
+                    <?php echo $this->form->test->renderViewHelper(); ?>
+                    <?php echo $this->form->test->renderErrors(); ?>
+                </div>
+			</div>
+			<div class="form-group">
+
+				<div class="col-sm-12">
+					<div class="box-footer">
+						<div class="col-sm-offset-4 col-sm-6">
+                            <?php echo $this->form->Save; ?>
+                            <?php echo $this->form->Reset; ?>
+                            <?php echo $this->form->Cancel; ?>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
+
+
+
+    <?php
+    $this->headLink()->appendStylesheet(
+            $this->baseUrl(
+                    '/assets/css/redmond/jquery-ui-1.10.4.custom.min.css'));
+    ?>
+<script type="text/javascript">
+$(document).ready(function() {
+	// Add tooltip to form-controls
+	$('.form-control').tooltip();
+	
+	// Load example of form validation
+	LoadBootstrapValidatorScript(DemoFormValidator);
+	// Add drag-n-drop feature to boxes
+	WinMove();
+});
+</script>

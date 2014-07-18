@@ -1,0 +1,123 @@
+                        <?php
+                        
+if ($this->questions) :
+                            ?>
+<ul >
+	<li style="list-style-type: none;" class="bs-docs-example"><span
+		class="q_number">Question <span class="questionNo"></span> /<span
+			id="totalQuestion"></span>
+	</span>
+        <div id="questionView" class="row">
+        <div class="col-sm-1" ><h4><span class="questionNo"></span> .</div><div id="questionDiv" style="margin-left: -75px;" class=" col-sm-11">
+			<div class="">
+				<h4><?php echo $this->questions->getQuestionBank()->getQuestion() ?>
+				</h4>
+			</div>
+		</div>
+        </div>
+    
+		<div autocomplete="off" class="col-sm-12 answer" id="answer_3">
+			<form method="post" id="answers"
+				action="<?php
+                            
+echo $this->url(array(
+                                    'action' => 'get-question'
+                            ))?>"
+				onsubmit="return false">
+				<div id="options" class="clearfix"><?php
+                            switch ($this->questions->getQuestionBank()
+                                ->getQuestionType()
+                                ->getId()) {
+                                case '1':
+                                    $c = 0;
+                                    foreach (unserialize(
+                                            $this->questions->getQuestionBank()->getOptions()) as $key => $options) {
+                                        echo '<p class="opti"><label class="option row" for="' .
+                                                 $key . '"> 
+				<div id="div-' . $key .
+                                                 '-0" class="glow">
+				  <div class="pull-left">
+					<div class="input-append option">
+                     <label id="label-' .
+                                                 $key . '-0" for="' . $key .
+                                                 '" class="add-on ">
+												<input type="checkbox" value="' .
+                                                 $key . '" name="answer[]" id="' .
+                                                 $key . '">
+											  </label>
+					
+					 
+					</div>
+				  </div>
+				  <div clss="pull-right">
+					<p class="answer">
+					  <label for="userans-0"> ' . $options . '				  </label>
+					</p>
+				  </div>
+				</div>
+				</p>';
+                                    }
+                                    break;
+                                case '2':
+                                    $c = 0;
+                                    foreach (unserialize(
+                                            $this->questions->getQuestionBank()->getOptions()) as $key => $options) {
+                                        echo '<p class="opti"><label class="option row" for="' .
+                                                 $key . '"> 
+				<div id="div-' . $key . '-0" class="glow">
+				  <div class="pull-left">
+					<div class="input-append option">
+					 
+					  <label id="label-' .
+                                                 $key . '-0" for="' . $key .
+                                                 '" class="add-on ">
+												<input type="radio" value="' .
+                                                 $key . '" name="answer" id="' .
+                                                 $key . '">
+											  </label>
+					</div>
+				  </div>
+				  <div clss="pull-right">
+					<p class="answer">
+					  <label for="userans-0">' . $options . '			  </label>
+					</p>
+				  </div>
+				</div>
+				</label></p>';
+                                    }
+                                    break;
+                                    break;
+                                case '3':
+                                    echo '<div class="form-group col-sm-5"><textarea name="answer" autofocus="TRUE" class="form-control" rows=8 cols=40/></div>';
+                                    break;
+                                case '4':
+                                    echo '<div class="form-group col-sm-4"><input type="text" name="answer" class="form-control" autofocus="TRUE"/></div>';
+                            }
+                            
+                            echo $this->formHidden('nextRow', 
+                                    $this->questions->nextRow);
+                            echo $this->formHidden('questionId', 
+                                    $this->questions->getId());
+                            echo $this->formHidden('startTime', 
+                                    date('Y-m-d h:i:s', time()));
+                            ?></div>
+
+
+				<br> <br>
+				<div style="display: none;" id="giaidap2" class="giaidap2"></div>
+				<div style="padding-bottom: 5px;" class="centered"></div>
+
+				<div style="clear: both;"></div>
+			</form>
+		</div></li>
+</ul>
+
+                         <?php
+else :
+                            ?>
+
+<form method="post" id="answers">
+    <?php echo $this->formHidden('nextRow', $this->escape($this->firstQuestion['first'])); ?>
+    </form>
+<?php endif; ?>
+

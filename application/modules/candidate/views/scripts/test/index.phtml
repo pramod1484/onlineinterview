@@ -1,0 +1,100 @@
+<!--<FORM action="<?php // echo $this->url(array('action' => 'start'));     ?>" method="post" ><?php echo $this->formHidden('category', $this->candidateTestCategories[0]['id']); ?><BUTTON type="submit" class="btn btn-info">Start Test</BUTTON></FORM>-->
+<div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3" style="margin-top:20px;">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="col-xs-12 ">
+					<div class="box">
+						<div class="box-contentLogin">
+							<h2>
+								<p class="page-header">Hi, <?php echo $this->escape($this->candidateInfo->getCandidate()->getUser()->getFullName()); ?>.</p>
+							</h2>
+                            <div class="panel-body">
+							<h3>
+								Test assigned to you :
+								<code><?php echo $this->escape($this->candidateInfo->getTest()->getTestName()); ?></code>
+							</h3>
+							<h4>
+								Technology is :
+								<code><?php echo $this->escape($this->candidateInfo->getTest()->getTechnology()->getTechnologyName()); ?></code>
+							</h4>
+							<h3>
+								<small>Test have following categories.</small>
+							</h3>
+							<div>
+								<ol>
+                                    <?php
+                                    foreach ($this->candidateTestCategories as $category) :
+                                        ?>
+                                        <b><li><?php echo $this->escape($category['categoryName']) ?></li></b>
+<?php endforeach; ?>
+                                </ol>
+							</div>
+<?php if ($this->candidateInfo->getRemark() == 0) : ?>
+                                <h4>
+								Is this right test assigned to you ? <br> if yes click on start
+								test or contact to administrator!
+							</h4>
+							<div class=" text-center form-action">
+
+								<a href="<?php echo $this->url(array('action' => 'start')) ?>"
+									class="btn btn-primary" id="start">Start Test</a> <a
+									href="<?php
+    echo $this->url(
+            array(
+                    'controller' => 'login',
+                    'module' => 'default',
+                    'action' => 'log-out'
+            ))?>"
+									onclick="window.close()" class="btn btn-warning hide disabled"
+									id="exit">Sign out</a>
+<?php else : ?>
+                                    <div
+									class=" text-center form-action">
+									<div class="alert bg-warning">You have already given this test.</div>
+									<a
+										href="<?php
+    echo $this->url(
+            array(
+                    'controller' => 'login',
+                    'module' => 'default',
+                    'action' => 'log-out'
+            ))?>"
+										onclick="window.close()" class="btn btn-warning" id="exit">Exit</a>
+<?php endif; ?>
+
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        </div>
+	</div>
+	<script>
+
+        $("#start").click(function(event) {
+            var params = [
+                'height=' + screen.height,
+                'width=' + screen.width,
+                'toolbar=0', 'location=no', close = 0, 'directories=0', 'status=0', 'menubar=0', 'titlebar=no', 'channelmode=yes', 'scrollbars=0', 'resizable=0',
+                'fullscreen=yes' // only works in IE, but here for completeness
+            ].join(',');
+            event.preventDefault();
+
+            $('#exit').removeClass('hide');
+            $(this).remove();
+            var NWin = window.open($(this).prop('href'), 'testWindow', params);
+            
+            if (window.focus)
+            {
+                NWin.focus();
+            } else {
+                window.close()
+                location.reload()
+            }
+
+            return false;
+        })
+    </script>

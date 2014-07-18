@@ -1,0 +1,33 @@
+JobPositions:
+    type: entity
+    table: job_positions
+    fields:
+        id:
+            id: true
+            type: boolean
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        position:
+            type: string
+            length: 128
+            fixed: false
+            nullable: false
+        description:
+            type: string
+            length: 255
+            fixed: false
+            nullable: false
+        isEnabled:
+            type: boolean
+            nullable: false
+            column: is_enabled
+        createdDate:
+            type: datetime
+            nullable: false
+            column: created_date
+        modifiedDate:
+            type: datetime
+            nullable: false
+            column: modified_date
+    lifecycleCallbacks: {  }

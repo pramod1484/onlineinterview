@@ -1,0 +1,166 @@
+<div class="modal-dialog " style="width: 60%; ">
+	<div class="modal-content" id="marklist">
+		<div class="modal-header">
+			<button type="button" class="close btn-close" data-dismiss="modal"
+				aria-hidden="true">
+				<i class="glyphicon glyphicon-remove"></i>
+			</button>
+            <span class="modal-title text-center" id="myModalLabel">Candidate profile view</span>
+		
+		</div>
+		<div class="modal-body ">
+              <div class="clearfix"></div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-10">
+                <div class="profile-user-info profile-user-info-striped" style="margin-top: 20px;">
+											<div class="profile-info-row row">
+												<div class="profile-info-name col-xs-3"> Name </div>
+
+												<div class="profile-info-value col-xs-9">
+													<span id="username" class="editable editable-click"><?php echo $this->escape($this->candidateData->getUser()->getFullName()) ?></span>
+												</div>
+											</div>
+                                            <div class="profile-info-row row">
+												<div class="profile-info-name col-xs-3"> Email </div>
+
+												<div class="profile-info-value col-xs-9">
+                                                    <span id="email" class="editable editable-click"><?php echo $this->escape($this->candidateData->getUser()->getEmail()) ?></span>
+												</div>
+											</div>
+                                            <div class="profile-info-row row">
+												<div class="profile-info-name col-xs-3"> Mobile </div>
+
+												<div class="profile-info-value col-xs-9">
+                                                    <span id="mobile" class="editable editable-click"><?php echo $this->escape($this->candidateData->getMobileNo()) ?></span>
+												</div>
+											</div>
+                                            <div class="profile-info-row row">
+												<div class="profile-info-name col-xs-3"> Date of birth </div>
+
+												<div class="profile-info-value col-xs-9">
+                                                    <span id="dob" class="editable editable-click"><?php echo $this->escape($this->candidateData->getDateOfBirth()->format('Y-m-d')) ?></span>
+												</div>
+											</div>
+                 <div class="profile-info-row row">
+												<div class="profile-info-name col-xs-3"> Highest Degree </div>
+
+												<div class="profile-info-value col-xs-9">
+                                                    <span id="degree" class="editable editable-click"><?php echo $this->escape($this->candidateData->getDegree()) ?></span>
+												</div>
+											</div>
+                <div class="profile-info-row row">
+												<div class="profile-info-name col-xs-3"> Experience </div>
+
+												<div class="profile-info-value col-xs-9">
+                                                    <span id="exp" class="editable editable-click"><?php echo $this->escape($this->candidateData->getExperience()) ?></span>
+												</div>
+											</div>
+                 <div class="profile-info-row row">
+												<div class="profile-info-name col-xs-3"> Notice period </div>
+
+												<div class="profile-info-value col-xs-9">
+                                                    <span id="notice" class="editable editable-click"><?php echo $this->escape($this->candidateData->getNoticePeriod()) ?></span>
+												</div>
+											</div>
+               
+											<div class="profile-info-row row">
+												<div class="profile-info-name col-xs-3"> Location </div>
+
+												<div class="profile-info-value col-xs-9">
+                                                    <span id="city" class="editable editable-click"><?php echo $this->escape($this->candidateData->getLocality()) ?>,<?php echo $this->escape($this->candidateData->getCity()) ?></span>
+												</div>
+											</div>
+
+											<div class="profile-info-row row">
+												<div class="profile-info-name col-xs-3"> Position applied for </div>
+
+												<div class="profile-info-value col-xs-9">
+													<span id="position" class="editable editable-click"><?php echo $this->escape($this->candidateData->getJobPosition()->getPosition()) ?></span>
+												</div>
+											</div>
+
+											<div class="profile-info-row row">
+												<div class="profile-info-name col-xs-3"> Created Date </div>
+
+												<div class="profile-info-value col-xs-9">
+													<span id="technology" class="editable editable-click"><?php echo $this->escape($this->candidateData->getCreatedDate()->format('Y-m-d')) ?></span>
+												</div>
+											</div>
+
+											<div class="profile-info-row row">
+												<div class="profile-info-name col-xs-3"> Last Modified </div>
+
+												<div class="profile-info-value col-xs-9">
+													<span id="login" class="editable editable-click"><?php echo $this->escape($this->candidateData->getModifiedDate()->format('Y-m-d')) ?></span>
+												</div>
+											</div>
+                                        </div>
+        </div>
+        </div>
+        <div class="clearfix"></div>
+		<div class="modal-footer">
+			<button type="button" class="btn-close btn btn-default"
+				data-dismiss="modal">Close</button>
+		</div>
+	</div>
+</div>
+</div>
+<script>
+    emptyMarks = 0;
+    $(document).ready(function(){
+        if($(".marks").size() > 0)
+        {
+            emptyMarks = 1;
+        }
+    })
+    
+    
+    function marks(self, catId) {
+        
+        self = $(self);
+        mark = self.val();
+        if (mark == '') {
+           emptyMarks = 1;
+        }else{
+            emptyMarks = 0;
+        }
+        if (!$.isNumeric(mark) && emptyMarks != 1) {
+            alert('Input Number Only');
+            clearField(self);
+            return false;
+        }
+        if(emptyMarks != 1) {
+            updateMark(self, catId);
+        }
+    }
+        
+    function clearField(self)
+    {
+        setTimeout(function() {
+            self.val('');
+            self.focus();
+        }, 1);
+
+    }
+    function updateMark(self, catId) {
+        question = self.parent('div').prop('id');
+        total = '.tscored' + catId;
+        var mark = self.val();
+        url = "<?php echo $this->url(array('action' => 'update-mark')) ?>";
+        $.post(url, {questionId: question, mark: mark}, function(responce) {
+            if ($.type(responce) !== 'string') {
+              // self.parent('div').removeAttr('id');              
+              //   self.parent('div').html('<div class="text-center">' + mark + '</div>');
+                $(total).html(responce.scored);
+            } else {
+                alert(responce);
+                clearField(self);
+            }
+        })
+    }
+    $(".btn-close").click(function(e) {
+        if(emptyMarks == 1){
+            return confirm('Review not completed. Are you sure for exit?');
+        }
+    })
+</script>
